@@ -3,7 +3,7 @@ global:
   owner: quickstart-eng@amazon.com
   qsname: quickstart-enterprise-accelerator-uk-official
   regions:
-    - us-west-2
+    - eu-west-2
   reporting: true
 tests:
   defaults:
