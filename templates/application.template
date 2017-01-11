@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: 2010-09-09
-Description: Enterprise Accelerator - Provides nesting for required stacks to deploy a full sample web application with reverse proxy, ELBs, IAM, and other resources (for demonstration/POC/testing) QS(5018)
+Description: QS(0016) Enterprise Accelerator - Provides nesting for required stacks to deploy a full sample web application with reverse proxy, ELBs, IAM, and other resources (for demonstration/POC/testing)
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
@@ -461,7 +461,7 @@ Resources:
       HealthCheck:
         HealthyThreshold: 2
         Interval: 30
-        Target: TCP:443
+        Target: TCP:80
         Timeout: 5
         UnhealthyThreshold: 5
       AccessLoggingPolicy:
@@ -880,10 +880,7 @@ Resources:
           echo Send notification message...
           aws sns publish --topic-arn ${pSecurityAlarmTopic} \
             --subject "CloudFormation successfully launched ${AWS::StackName}" \
-            --message "What now? Click here for more information: https://${rELBWeb.DNSName}/landing.html. \
-                       Please note that the application server might be finishing up its initialization. \
-                       If the link doesn't respond right away, please try it again in few minutes. \
-                       This page resides on an application server in your new environment." \
+            --message "What now? Click here for more information: https://${rELBWeb.DNSName}/landing.html. Please note that the application server might be finishing up its initialization. If the link doesn't respond right away, please try it again in few minutes. This page resides on an application server in your new environment." \
             --region ${AWS::Region}
 
           echo Self-destruct!
