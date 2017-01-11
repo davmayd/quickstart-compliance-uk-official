@@ -876,7 +876,7 @@ Resources:
           fi
           echo Creating ELB HTTPS listener using the cert stored in the environment variable...
           aws elb create-load-balancer-listeners --load-balancer-name ${rELBWeb} --listeners "Protocol=HTTPS,LoadBalancerPort=443,InstanceProtocol=HTTP,InstancePort=80,SSLCertificateId=$cert_arn" --region ${AWS::Region}
-          aws elb create-load-balancer-listeners --load-balancer-name ${rELBApp}
+          aws elb create-load-balancer-listeners --load-balancer-name ${rELBApp} --listeners "Protocol=HTTPS,LoadBalancerPort=443,InstanceProtocol=HTTP,InstancePort=80,SSLCertificateId=$cert_arn" --region ${AWS::Region}
           echo Send notification message...
           aws sns publish --topic-arn ${pSecurityAlarmTopic} \
             --subject "CloudFormation successfully launched ${AWS::StackName}" \
