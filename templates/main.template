@@ -99,7 +99,7 @@ Parameters:
   QSS3KeyPrefix:
     AllowedPattern: ^[0-9a-zA-Z-]+(/[0-9a-zA-Z-]+)*$
     ConstraintDescription: Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.
-    Default: enterprise-accelerator/uk/official/latest
+    Default: enterprise-accelerator/uk/latest
     Description: S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/). It cannot start or end with forward slash (/) because they are automatically appended.
     Type: String
 Mappings:
@@ -220,65 +220,67 @@ Mappings:
       ConfigRules: false
       NatGateway: false
       Glacier: false
-  RegionMap:
+  AWSAMIRegionMap:
+    AMI:
+      AMZNLINUXHVM: amzn-ami-hvm-2016.09.1.20161221-x86_64-gp2
     us-east-1:
-      AMI: ami-c481fad3
+      AMZNLINUXHVM: ami-9be6f38c
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     us-east-2:
-      AMI: ami-71ca9114
+      AMZNLINUXHVM: ami-38cd975d
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     us-west-1:
-      AMI: ami-de347abe
+      AMZNLINUXHVM: ami-b73d6cd7
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     us-west-2:
-      AMI: ami-b04e92d0
+      AMZNLINUXHVM: ami-1e299d7e
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     ca-central-1:
-      AMI: ami-b48b39d0
-      InstanceType: m4.large
-      InstanceTypeDatabase: db.m4.large
-    eu-west-1:
-      AMI: ami-d41d58a7
-      InstanceType: m4.large
-      InstanceTypeDatabase: db.m4.large
-    eu-west-2:
-      AMI: ami-d6cbc1b2
+      AMZNLINUXHVM: ami-eb20928f
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     eu-central-1:
-      AMI: ami-0044b96f
+      AMZNLINUXHVM: ami-211ada4e
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
-    ap-southeast-1:
-      AMI: ami-7243e611
+    eu-west-1:
+      AMZNLINUXHVM: ami-c51e3eb6
+      InstanceType: m4.large
+      InstanceTypeDatabase: db.m4.large
+    eu-west-2:
+      AMZNLINUXHVM: ami-bfe0eadb
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     ap-south-1:
-      AMI: ami-cacbbea5
+      AMZNLINUXHVM: ami-9fc7b0f0
+      InstanceType: m4.large
+      InstanceTypeDatabase: db.m4.large
+    ap-southeast-1:
+      AMZNLINUXHVM: ami-4dd6782e
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     ap-southeast-2:
-      AMI: ami-55d4e436
+      AMZNLINUXHVM: ami-28cff44b
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     ap-northeast-1:
-      AMI: ami-1a15c77b
+      AMZNLINUXHVM: ami-9f0c67f8
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     ap-northeast-2:
-      AMI: ami-a04297ce
+      AMZNLINUXHVM: ami-94bb6dfa
       InstanceType: m4.large
       InstanceTypeDatabase: db.m4.large
     us-gov-west-1:
-      AMI: ami-0a60dc6b
+      AMZNLINUXHVM: ami-ffa61d9e
       InstanceType: m4.large
       InstanceTypeDatabase: db.m3.large
     sa-east-1:
-      AMI: ami-b777e4db
+      AMZNLINUXHVM: ami-bb40d8d7
       InstanceType: m4.large
       InstanceTypeDatabase: db.m3.large
 Conditions:
@@ -325,8 +327,8 @@ Resources:
         pEnvironment: !FindInMap [ CustomVariables, vResourceEnvironmentTagValue, Value ]
         pEC2KeyPair: !Ref pEC2KeyPair
         pSupportsNatGateway: !FindInMap [ RegionServiceSupport, !Ref 'AWS::Region', NatGateway ]
-        pNatAmi: !FindInMap [ RegionMap, !Ref 'AWS::Region', AMI ]
-        pNatInstanceType: !FindInMap [ RegionMap, !Ref 'AWS::Region', InstanceType ]
+        pNatAmi: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', AMZNLINUXHVM ]
+        pNatInstanceType: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', InstanceType ]
         QuickStartS3URL: !FindInMap [ AWSInfoRegionMap, !Ref 'AWS::Region', QuickStartS3URL ]
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
@@ -353,14 +355,14 @@ Resources:
         pEC2KeyPairBastion: !Ref pEC2KeyPairBastion
         pEC2KeyPair: !Ref pEC2KeyPair
         pVPCTenancy: !Ref pVPCTenancy
-        pBastionAmi: !FindInMap [ RegionMap, !Ref 'AWS::Region', AMI ]
+        pBastionAmi: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', AMZNLINUXHVM ]
         pRegionAZ1Name: !Ref pAvailabilityZoneA
         pRegionAZ2Name: !Ref pAvailabilityZoneB
         pEnvironment: !FindInMap [ CustomVariables, vResourceEnvironmentTagValue, Value ]
         pBastionInstanceType: !If [ LaunchAsDedicatedInstance, m4.large, t2.small ]
         pSupportsNatGateway: !FindInMap [ RegionServiceSupport, !Ref 'AWS::Region', NatGateway ]
-        pNatAmi: !FindInMap [ RegionMap, !Ref 'AWS::Region', AMI ]
-        pNatInstanceType: !FindInMap [ RegionMap, !Ref 'AWS::Region', InstanceType ]
+        pNatAmi: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', AMZNLINUXHVM ]
+        pNatInstanceType: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', InstanceType ]
         QuickStartS3URL: !FindInMap [ AWSInfoRegionMap, !Ref 'AWS::Region', QuickStartS3URL ]
         QSS3BucketName: !Ref QSS3BucketName
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
@@ -396,19 +398,19 @@ Resources:
         pDMZSubnetB: !GetAtt [ ProductionVpcTemplate, Outputs.rDMZSubnetB ]
         pAppPrivateSubnetA: !GetAtt [ ProductionVpcTemplate, Outputs.rAppPrivateSubnetA ]
         pAppPrivateSubnetB: !GetAtt [ ProductionVpcTemplate, Outputs.rAppPrivateSubnetB ]
-        pWebInstanceType: !FindInMap [ RegionMap, !Ref 'AWS::Region', InstanceType ]
-        pAppInstanceType: !FindInMap [ RegionMap, !Ref 'AWS::Region', InstanceType ]
+        pWebInstanceType: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', InstanceType ]
+        pAppInstanceType: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', InstanceType ]
         pDBPrivateSubnetA: !GetAtt [ ProductionVpcTemplate, Outputs.rDBPrivateSubnetA ]
         pDBPrivateSubnetB: !GetAtt [ ProductionVpcTemplate, Outputs.rDBPrivateSubnetB ]
         pManagementCIDR: 10.10.0.0/16
         pRegionAZ1Name: !Ref pAvailabilityZoneA
         pRegionAZ2Name: !Ref pAvailabilityZoneB
-        pWebServerAMI: !FindInMap [ RegionMap, !Ref 'AWS::Region', AMI ]
-        pAppAmi: !FindInMap [ RegionMap, !Ref 'AWS::Region', AMI ]
+        pWebServerAMI: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', AMZNLINUXHVM ]
+        pAppAmi: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', AMZNLINUXHVM ]
         pDBUser: testuserdb
         pDBName: testDB
         pDBPassword: !Ref pDBPassword
-        pDBClass: !FindInMap [ RegionMap, !Ref 'AWS::Region', InstanceTypeDatabase ]
+        pDBClass: !FindInMap [ AWSAMIRegionMap, !Ref 'AWS::Region', InstanceTypeDatabase ]
         pDBAllocatedStorage: 10
         pEnvironment: !FindInMap [ CustomVariables, vResourceEnvironmentTagValue, Value ]
         pBastionSSHCIDR: 0.0.0.0/0
