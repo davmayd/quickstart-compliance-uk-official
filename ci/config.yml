@@ -1,9 +1,10 @@
 global:
+  govcloud: false
   marketplace-ami: false
   owner: quickstart-eng@amazon.com
-  qsname: quickstart-enterprise-accelerator-uk-official
+  qsname: quickstart-compliance-uk-official
   regions:
-    - eu-west-2
+  - eu-west-2
   reporting: true
 tests:
   defaults:
