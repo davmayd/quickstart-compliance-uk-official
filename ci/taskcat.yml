@@ -7,6 +7,6 @@ global:
   - eu-west-2
   reporting: true
 tests:
-  defaults:
+  compl-uk-official:
     parameter_input: defaults.json
     template_file: main.template
