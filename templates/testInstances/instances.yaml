@@ -59,51 +59,31 @@ Resources:
               - "sts:AssumeRole"
       Path: "/"
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonEC2RoleforSSM
 
   InternetInstanceSecurityRoute:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: "Interface Endpoints"
       VpcId: !Ref InternetVPCId
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: '22'
-        ToPort: '22'
-        CidrIp: 0.0.0.0/0
 
   ProductionInstanceSecurityRoute:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: "Interface Endpoints"
       VpcId: !Ref ProductionVPCId
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: '22'
-        ToPort: '22'
-        CidrIp: 0.0.0.0/0
 
   EndpointInstanceSecurityRoute:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: "Interface Endpoints"
       VpcId: !Ref EndpointVPCId
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: '22'
-        ToPort: '22'
-        CidrIp: 0.0.0.0/0
 
   SharedInstanceSecurityRoute:
     Type: "AWS::EC2::SecurityGroup"
     Properties:
       GroupDescription: "Interface Endpoints"
       VpcId: !Ref SharedVPCId
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: '22'
-        ToPort: '22'
-        CidrIp: 0.0.0.0/0
 
   Ec2SSMInstanceProfile:
     Type: "AWS::IAM::InstanceProfile"

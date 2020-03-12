@@ -126,6 +126,9 @@ Parameters:
       can include numbers, lowercase letters, uppercase letters, hyphens (-), and
       forward slash (/).
     Type: String
+  BucketRegion:
+    Description: Region for asset bucket
+    Type: String
   proxyServer:
     Description: Proxy Server for outbound access
     Type: String
@@ -161,11 +164,6 @@ Mappings:
       ELB: '027434742980'
     us-west-2:
       ELB: '797873946194'
-Conditions:
-  GovCloudCondition:
-    !Equals
-    - !Ref AWS::Region
-    - us-gov-west-1
 Resources:
   rSecurityGroupAppInstance:
     Type: AWS::EC2::SecurityGroup
@@ -256,7 +254,7 @@ Resources:
           - sts:AssumeRole
       Path: /
       ManagedPolicyArns: 
-      - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+      - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AmazonEC2RoleforSSM'
       Policies:
       - PolicyName: S3Assets
         PolicyDocument:
@@ -418,10 +416,10 @@ Resources:
             ######################################################################
 
             # Download the landing page.
-            sudo wget https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}assets/landing/landing.html -O $LANDING_PAGE
+            sudo wget https://${QSS3BucketName}.s3.${BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}assets/landing/landing.html -O $LANDING_PAGE
 
             # Replace relative image links with links to the production S3 source.
-            sudo sed -i 's|images|https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}assets/landing/images|g' $LANDING_PAGE
+            sudo sed -i 's|images|https://${QSS3BucketName}.s3.${BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}assets/landing/images|g' $LANDING_PAGE
 
             # Inject the landing page branding label.
             sudo sed -i "s|{compliance-body}|$COMPLIANCE_BODY_LABEL|g" $LANDING_PAGE
@@ -430,17 +428,13 @@ Resources:
             sudo sed -i "s|{compliance-body-survey-link}|$COMPLIANCE_SURVEY_LINK|g" $LANDING_PAGE
 
             # Inject the security control matrix file location.
-            sudo sed -i "s|{compliance-body-matrix}|https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}assets/$COMPLIANCE_MATRIX_FILENAME|g" $LANDING_PAGE
+            sudo sed -i "s|{compliance-body-matrix}|https://${QSS3BucketName}.s3.${BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}assets/$COMPLIANCE_MATRIX_FILENAME|g" $LANDING_PAGE
 
             # Upgrade PHP
             amazon-linux-extras enable php7.3
             yum update -y php
             service httpd restart
-          - QSS3Region:
-              !If
-              - GovCloudCondition
-              - s3-us-gov-west-1
-              - s3
+          - BucketRegion: !Ref BucketRegion
 
   LoadBalancer:
     Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
@@ -644,7 +638,7 @@ Resources:
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
-                Resource: arn:aws:logs:*
+                Resource: !Sub arn:${AWS::Partition}:logs:*
               - Effect: Allow
                 Action:
                   - ec2:Describe*
@@ -717,7 +711,7 @@ Resources:
           - 'sts:AssumeRole'
       Path: '/'
       ManagedPolicyArns: # TODO get rid of managed policy
-      - 'arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
+      - !Sub 'arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'
       Policies:
       - PolicyName: PostProcPermissions
         PolicyDocument:

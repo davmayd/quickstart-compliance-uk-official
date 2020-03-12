@@ -11,6 +11,7 @@ Resources:
         ZipFile: !Sub |
           import boto3
           import json
+          import sys
           from os import environ
 
           ec2Client = boto3.client('ec2')
@@ -87,23 +88,27 @@ Resources:
               rd = {}
               if vpcId == None:
                   cfn.send(event, context, cfn.SUCCESS, rd, 'flowLogs')
+                  return
               if event['RequestType'] == 'Create':
                   try:
                       configureFlowLogs(vpcId)
                       cfn.send(event, context, cfn.SUCCESS, rd, 'flowLogs')
                   except Exception as e:
+                      rd['error'] = e
                       cfn.send(event, context, cfn.FAILED, rd, 'flowLogs')
               elif event['RequestType'] == 'Update':
                   try:
                       configureFlowLogs(vpcId)
                       cfn.send(event, context, cfn.SUCCESS, rd, 'flowLogs')
                   except Exception as e:
+                      rd['error'] = e
                       cfn.send(event, context, cfn.FAILED, rd, 'flowLogs')
               elif event['RequestType'] == 'Delete':
                   try:
                       removeFlowLogs(vpcId)
                       cfn.send(event, context, cfn.SUCCESS, rd, 'flowLogs')
                   except Exception as e:
+                      rd['error'] = e
                       cfn.send(event, context, cfn.FAILED, rd, 'flowLogs')
               else:
                   cfn.send(event, context, cfn.FAILED, rd, 'flowLogs')
@@ -147,7 +152,7 @@ Resources:
           - logs:DescribeLogGroups
           - logs:DescribeLogStreams
           Resource:
-          - arn:aws:logs:*:*:*
+          - !Sub arn:${AWS::Partition}:logs:*:*:*
       PolicyName: VPCFlowLogPolicy
       Roles:
       - !Ref VPCFlowLogRole
@@ -185,12 +190,12 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                   - logs:DescribeLogGroups
-                Resource: arn:aws:logs:*:*:*
+                Resource: !Sub arn:${AWS::Partition}:logs:*:*:*
               - Effect: Allow
                 Action:
                   - iam:GetRole
                   - iam:PassRole
-                Resource: !Join ['', [ 'arn:aws:iam::', !Ref "AWS::AccountId", ':role/official-quickstart-default-vpc-flow-logs-role' ] ]
+                Resource: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/official-quickstart-default-vpc-flow-logs-role'
 
 
   AddDefaultVPCFlowLogs:

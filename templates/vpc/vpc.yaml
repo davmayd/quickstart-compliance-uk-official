@@ -209,7 +209,7 @@ Resources:
             Effect: "Allow"
             Principal:
               Service:
-                - "vpc-flow-logs.amazonaws.com"
+                - !Sub "vpc-flow-logs.${AWS::URLSuffix}"
             Action:
               - "sts:AssumeRole"
       Path: "/"
@@ -228,7 +228,7 @@ Resources:
           - logs:DescribeLogGroups
           - logs:DescribeLogStreams
           Resource:
-          - arn:aws:logs:*:*:*
+          - !Sub arn:${AWS::Partition}:logs:*:*:*
       PolicyName: VPCFlowLogPolicy
       Roles:
       - !Ref VPCFlowLogRole

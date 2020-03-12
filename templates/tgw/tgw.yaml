@@ -280,7 +280,7 @@ Resources:
     Properties: 
       HostedZoneConfig: 
         Comment: "A hosted zone for EC2 VPC endpoints"
-      Name: !Sub 'ec2.${AWS::Region}.amazonaws.com'
+      Name: !Sub 'ec2.${AWS::Region}.${AWS::URLSuffix}'
       VPCs: 
         -
           VPCId: !Ref InternetVPCId
@@ -300,9 +300,9 @@ Resources:
     DependsOn: EC2DNS
     Type: AWS::Route53::RecordSet
     Properties:
-      HostedZoneName: !Sub 'ec2.${AWS::Region}.amazonaws.com.'
+      HostedZoneName: !Sub 'ec2.${AWS::Region}.${AWS::URLSuffix}.'
       Comment: DNS for EC2
-      Name: !Sub 'ec2.${AWS::Region}.amazonaws.com'
+      Name: !Sub 'ec2.${AWS::Region}.${AWS::URLSuffix}'
       AliasTarget: 
         DNSName: !Join [ '', [ !Select [ 1, !Split [ ':', !Select [ 0, !GetAtt ec2Endpoint.DnsEntries ] ] ], '.' ] ]
         EvaluateTargetHealth: false
@@ -314,7 +314,7 @@ Resources:
     Properties: 
       HostedZoneConfig: 
         Comment: "A hosted zone for EC2 messages VPC endpoints"
-      Name: !Sub 'ec2messages.${AWS::Region}.amazonaws.com'
+      Name: !Sub 'ec2messages.${AWS::Region}.${AWS::URLSuffix}'
       VPCs: 
         -
           VPCId: !Ref InternetVPCId
@@ -334,9 +334,9 @@ Resources:
     DependsOn: EC2MessagesDNS
     Type: AWS::Route53::RecordSet
     Properties:
-      HostedZoneName: !Sub 'ec2messages.${AWS::Region}.amazonaws.com.'
+      HostedZoneName: !Sub 'ec2messages.${AWS::Region}.${AWS::URLSuffix}.'
       Comment: DNS for EC2
-      Name: !Sub 'ec2messages.${AWS::Region}.amazonaws.com'
+      Name: !Sub 'ec2messages.${AWS::Region}.${AWS::URLSuffix}'
       AliasTarget: 
         DNSName: !Join [ '', [ !Select [ 1, !Split [ ':', !Select [ 0, !GetAtt ec2MessenegesEndpoint.DnsEntries ] ] ], '.' ] ]
         EvaluateTargetHealth: false
@@ -348,7 +348,7 @@ Resources:
     Properties:
       HostedZoneConfig:
         Comment: "A hosted zone for SSM VPC endpoints"
-      Name: !Sub 'ssm.${AWS::Region}.amazonaws.com'
+      Name: !Sub 'ssm.${AWS::Region}.${AWS::URLSuffix}'
       VPCs:
         -
           VPCId: !Ref InternetVPCId
@@ -368,9 +368,9 @@ Resources:
     DependsOn: SSMEndpointDNS
     Type: AWS::Route53::RecordSet
     Properties:
-      HostedZoneName: !Sub 'ssm.${AWS::Region}.amazonaws.com.'
+      HostedZoneName: !Sub 'ssm.${AWS::Region}.${AWS::URLSuffix}.'
       Comment: DNS for EC2
-      Name: !Sub 'ssm.${AWS::Region}.amazonaws.com'
+      Name: !Sub 'ssm.${AWS::Region}.${AWS::URLSuffix}'
       AliasTarget:
         DNSName: !Join [ '', [ !Select [ 1, !Split [ ':', !Select [ 0, !GetAtt ssmEndpoint.DnsEntries ] ] ], '.' ] ]
         EvaluateTargetHealth: false
@@ -382,7 +382,7 @@ Resources:
     Properties:                                                                                             
       HostedZoneConfig:                                                                                     
         Comment: "A hosted zone for SSM messages VPC endpoints"                                             
-      Name: !Sub 'ssmmessages.${AWS::Region}.amazonaws.com'                                                 
+      Name: !Sub 'ssmmessages.${AWS::Region}.${AWS::URLSuffix}'                                                 
       VPCs:                                                                                                 
         -                                                                                                   
           VPCId: !Ref InternetVPCId                                                                         
@@ -402,9 +402,9 @@ Resources:
     DependsOn: SSMMessagesDNS
     Type: AWS::Route53::RecordSet                                                                           
     Properties:                                                                                             
-      HostedZoneName: !Sub 'ssmmessages.${AWS::Region}.amazonaws.com.'                                      
+      HostedZoneName: !Sub 'ssmmessages.${AWS::Region}.${AWS::URLSuffix}.'                                      
       Comment: DNS for EC2                                                                                  
-      Name: !Sub 'ssmmessages.${AWS::Region}.amazonaws.com'                                                 
+      Name: !Sub 'ssmmessages.${AWS::Region}.${AWS::URLSuffix}'                                                 
       AliasTarget:                                                                                          
         DNSName: !Join [ '', [ !Select [ 1, !Split [ ':', !Select [ 0, !GetAtt ssmMessagesEndpoint.DnsEntries ] ] ], '.' ] ]          
         EvaluateTargetHealth: false                                                                         
@@ -416,7 +416,7 @@ Resources:
     Properties:                                                                                             
       HostedZoneConfig:                                                                                     
         Comment: "A hosted zone for CloudWatch logs VPC endpoints"                                             
-      Name: !Sub 'logs.${AWS::Region}.amazonaws.com'                                                 
+      Name: !Sub 'logs.${AWS::Region}.${AWS::URLSuffix}'                                                 
       VPCs:                                                                                                 
         -                                                                                                   
           VPCId: !Ref InternetVPCId                                                                         
@@ -436,9 +436,9 @@ Resources:
     DependsOn: cloudwatchLogsDNS
     Type: AWS::Route53::RecordSet                                                                           
     Properties:                                                                                             
-      HostedZoneName: !Sub 'logs.${AWS::Region}.amazonaws.com.'                                      
+      HostedZoneName: !Sub 'logs.${AWS::Region}.${AWS::URLSuffix}.'                                      
       Comment: DNS for CloudWatch logs
-      Name: !Sub 'logs.${AWS::Region}.amazonaws.com'                                                 
+      Name: !Sub 'logs.${AWS::Region}.${AWS::URLSuffix}'                                                 
       AliasTarget:                                                                                          
         DNSName: !Join [ '', [ !Select [ 1, !Split [ ':', !Select [ 0, !GetAtt cloudwatchLogsEndpoint.DnsEntries ] ] ], '.' ] ]          
         EvaluateTargetHealth: false                                                                         
@@ -450,7 +450,7 @@ Resources:
     Properties:                                                                                             
       HostedZoneConfig:                                                                                     
         Comment: "A hosted zone for CloudWatch monitoring VPC endpoints"                                             
-      Name: !Sub 'monitoring.${AWS::Region}.amazonaws.com'                                                 
+      Name: !Sub 'monitoring.${AWS::Region}.${AWS::URLSuffix}'                                                 
       VPCs:                                                                                                 
         -                                                                                                   
           VPCId: !Ref InternetVPCId                                                                         
@@ -470,9 +470,9 @@ Resources:
     DependsOn: cloudwatchMonitoringDNS
     Type: AWS::Route53::RecordSet                                                                           
     Properties:                                                                                             
-      HostedZoneName: !Sub 'monitoring.${AWS::Region}.amazonaws.com.'                                      
+      HostedZoneName: !Sub 'monitoring.${AWS::Region}.${AWS::URLSuffix}.'                                      
       Comment: DNS for CloudWatch monitoring
-      Name: !Sub 'monitoring.${AWS::Region}.amazonaws.com'                                                 
+      Name: !Sub 'monitoring.${AWS::Region}.${AWS::URLSuffix}'                                                 
       AliasTarget:                                                                                          
         DNSName: !Join [ '', [ !Select [ 1, !Split [ ':', !Select [ 0, !GetAtt cloudwatchMonitoringEndpoint.DnsEntries ] ] ], '.' ] ]          
         EvaluateTargetHealth: false                                                                         

@@ -8,7 +8,7 @@ The AWS environment built by the Quick Start aligns with the following guideline
 - [National Cyber Security Centre (NCSC) Cloud Security Principles](https://www.ncsc.gov.uk/guidance/implementing-cloud-security-principles)
 - [Center for Internet Security (CIS) Critical Security Controls](https://www.cisecurity.org/controls/)
 
-The Quick Start deploys a standard three-tier web architecture using multiple VPCs:
+The Quick Start deploys a sample standard three-tier web architecture using multiple VPCs:
 
 ![Quick Start architecture for UK-OFFICIAL on AWS](assets/qs-high-level-architecture.png)
 

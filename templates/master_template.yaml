@@ -28,13 +28,17 @@ Parameters:
     NoEcho: true
     MinLength: 8
     Type: String
+  BucketRegion:
+    Default: 'us-east-1'
+    Description: Region your S3 Bucket is hosted in.
+    Type: String
   QSS3BucketName:
     Type: String
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-.]*[0-9a-zA-Z])*$
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase
       letters, uppercase letters, periods (.), and hyphens (-). It cannot start or
       end with a hyphen (-).
-    Default: cjl-eu-west-2
+    Default: aws-quickstart
   QSS3KeyPrefix:
     Type: String
     AllowedPattern: ^[0-9a-zA-Z-/]*$
@@ -43,18 +47,16 @@ Parameters:
     Description: S3 key prefix for the Quick Start assets. Quick Start key prefix
       can include numbers, lowercase letters, uppercase letters, hyphens (-), and
       forward slash (/).
-    Default: cloudformation-templates/official-quickstart
-    #Default: quickstart-compliance-uk-official/
+    Default: quickstart-compliance-uk-official/
   CisAlertingEmail:
     Description: 'Email Address to send Alert notifications for CIS breaches'
     Type: String
     AllowedPattern: '^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'
 
 Conditions:
-  GovCloudCondition:
-    !Equals
-    - !Ref AWS::Region
-    - us-gov-west-1
+  UsingDefaultBucket: !Equals
+    - !Ref QSS3BucketName
+    - 'aws-quickstart'
       
 Mappings: 
   RegionMap: 
@@ -70,14 +72,16 @@ Resources:
   InternetVPC:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/vpc/vpc.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/vpc/vpc.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -92,14 +96,16 @@ Resources:
   SharedVPC:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/vpc/vpc.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/vpc/vpc.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -112,14 +118,16 @@ Resources:
   ProductionVPC:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/vpc/vpc.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/vpc/vpc.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -132,14 +140,16 @@ Resources:
   EndpointVPC:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/vpc/vpc.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/vpc/vpc.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -152,14 +162,16 @@ Resources:
   TransitGateway:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/tgw/tgw.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/tgw/tgw.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -191,14 +203,16 @@ Resources:
   testStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/testInstances/instances.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/testInstances/instances.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -221,14 +235,16 @@ Resources:
   outboundProxy:                                                                                                     
     Type: AWS::CloudFormation::Stack                                                                             
     Properties:                                                                                                  
-      TemplateURL:                                                                                               
-        !Sub                                                                                                     
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/outboundProxy/outboundProxy.yaml
-        - QSS3Region:                                                                                            
-            !If                                                                                                  
-            - GovCloudCondition                                                                                  
-            - s3-us-gov-west-1                                                                                   
-            - s3                                                                                                 
+      TemplateURL: !Sub                                                                                                     
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/outboundProxy/outboundProxy.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:                                                                                                      
         - Key: ProjectName                                                                                       
           Value: !Ref ProjectName                                                                                
@@ -251,14 +267,16 @@ Resources:
       - SharedVPC
       - ProductionVPC
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/compliance-controls/compliance-controls.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/compliance-controls/compliance-controls.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -268,14 +286,16 @@ Resources:
   sampleApp:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/sampleApplication/sampleApplication.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/sampleApplication/sampleApplication.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -295,8 +315,19 @@ Resources:
         pDBPassword: password12345
         pDBClass: db.t3.micro
         pDBAllocatedStorage: 10
-        QSS3BucketName: cjl-eu-west-2
-        QSS3KeyPrefix: cloudformation-templates/official-quickstart/
+        QSS3BucketName: !Sub
+          - '${S3Bucket}'
+          - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+        BucketRegion: !Sub
+          - '${S3Region}'
+          - S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
+        QSS3KeyPrefix: !Ref QSS3KeyPrefix
         proxyServer: !GetAtt outboundProxy.Outputs.proxyEndpointAddress
         InternetVPCId: !GetAtt InternetVPC.Outputs.VPCId
         InternetSubnets: !Join [ ',', [ !GetAtt InternetVPC.Outputs.PrivateSubnetAId, !GetAtt InternetVPC.Outputs.PrivateSubnetBId, !GetAtt InternetVPC.Outputs.PrivateSubnetCId ] ]
@@ -305,14 +336,16 @@ Resources:
   defaultVPCFlowLogs:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL:
-        !Sub
-        - https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}/defaultVPC/addDefaultVPCFlowLogs.yaml
-        - QSS3Region:
-            !If
-            - GovCloudCondition
-            - s3-us-gov-west-1
-            - s3
+      TemplateURL: !Sub
+        - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}/defaultVPC/addDefaultVPCFlowLogs.yaml
+        - S3Bucket: !If
+            - UsingDefaultBucket
+            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Ref 'QSS3BucketName'
+          S3Region: !If
+            - UsingDefaultBucket
+            - !Ref 'AWS::Region'
+            - !Ref 'BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
