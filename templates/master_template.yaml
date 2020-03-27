@@ -28,7 +28,7 @@ Parameters:
     NoEcho: true
     MinLength: 8
     Type: String
-  BucketRegion:
+  QSS3BucketRegion:
     Default: 'us-east-1'
     Description: Region your S3 Bucket is hosted in.
     Type: String
@@ -81,7 +81,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -105,7 +105,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -127,7 +127,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -149,7 +149,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -171,7 +171,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -212,7 +212,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -244,7 +244,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:                                                                                                      
         - Key: ProjectName                                                                                       
           Value: !Ref ProjectName                                                                                
@@ -276,7 +276,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -295,7 +295,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
@@ -321,12 +321,12 @@ Resources:
             - UsingDefaultBucket
             - !Sub 'aws-quickstart-${AWS::Region}'
             - !Ref 'QSS3BucketName'
-        BucketRegion: !Sub
+        QSS3BucketRegion: !Sub
           - '${S3Region}'
           - S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
         QSS3KeyPrefix: !Ref QSS3KeyPrefix
         proxyServer: !GetAtt outboundProxy.Outputs.proxyEndpointAddress
         InternetVPCId: !GetAtt InternetVPC.Outputs.VPCId
@@ -345,7 +345,7 @@ Resources:
           S3Region: !If
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
-            - !Ref 'BucketRegion'
+            - !Ref 'QSS3BucketRegion'
       Tags:
         - Key: ProjectName
           Value: !Ref ProjectName
