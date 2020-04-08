@@ -60,13 +60,40 @@ Conditions:
       
 Mappings: 
   RegionMap: 
+    eu-north-1:
+      "HVM64": "ami-0f630db6194a81ad0"
+    ap-south-1:
+      "HVM64": "ami-03b5297d565ef30a6"
+    eu-west-3:
+      "HVM64": "ami-07eda9385feb1e969"
     eu-west-2:
-      "HVM64": "ami-09ead922c1dad67e4"
-      #"HVM64": "ami-00a1270ce1e007c27"
-    eu-west-1: 
-      "HVM64": "ami-07683a44e80cd32c5"
+      "HVM64": "ami-0cb790308f7591fa6"
+    eu-west-1:
+      "HVM64": "ami-04d5cc9b88f9d1d39"
+    ap-northeast-3:
+      "HVM64": "ami-075b14c8e2f90fd84"
+    ap-northeast-2:
+      "HVM64": "ami-0db78afd3d150fc18"
+    ap-northeast-1:
+      "HVM64": "ami-052652af12b58691f"
+    sa-east-1:
+      "HVM64": "ami-0b032e878a66c3b68"
+    ca-central-1:
+      "HVM64": "ami-0bf54ac1b628cf143"
+    ap-southeast-1:
+      "HVM64": "ami-0cbc6aae997c6538a"
+    ap-southeast-2:
+      "HVM64": "ami-08fdde86b93accf1c"
+    eu-central-1:
+      "HVM64": "ami-0ec1ba09723e5bfac"
     us-east-1:
-      "HVM64": "ami-0de53d8956e8dcf80"
+      "HVM64": "ami-0fc61db8544a617ed"
+    us-east-2:
+      "HVM64": "ami-0e01ce4ee18447327"
+    us-west-1:
+      "HVM64": "ami-09a7fe78668f1e2c0"
+    us-west-2:
+      "HVM64": "ami-0ce21b51cb31a48b8"
 
 Resources:
   InternetVPC:
@@ -76,7 +103,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/vpc/vpc.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -100,7 +127,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/vpc/vpc.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -122,7 +149,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/vpc/vpc.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -144,7 +171,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/vpc/vpc.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -166,7 +193,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/tgw/tgw.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -207,7 +234,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/testInstances/instances.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -239,7 +266,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/outboundProxy/outboundProxy.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -271,7 +298,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/compliance-controls/compliance-controls.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -290,7 +317,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/sampleApplication/sampleApplication.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -319,7 +346,7 @@ Resources:
           - '${S3Bucket}'
           - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
         QSS3BucketRegion: !Sub
           - '${S3Region}'
@@ -340,7 +367,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/defaultVPC/addDefaultVPCFlowLogs.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket

@@ -164,6 +164,10 @@ Mappings:
       ELB: '027434742980'
     us-west-2:
       ELB: '797873946194'
+Conditions:
+  UsingDefaultBucket: !Equals
+    - !Ref QSS3BucketName
+    - 'aws-quickstart'
 Resources:
   rSecurityGroupAppInstance:
     Type: AWS::EC2::SecurityGroup
@@ -416,10 +420,10 @@ Resources:
             ######################################################################
 
             # Download the landing page.
-            sudo wget https://${QSS3BucketName}.s3.${QSS3BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/assets/landing/landing.html -O $LANDING_PAGE
+            sudo wget https://${S3BucketName}.s3.${S3BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/assets/landing/landing.html -O $LANDING_PAGE
 
             # Replace relative image links with links to the production S3 source.
-            sudo sed -i 's|images|https://${QSS3BucketName}.s3.${QSS3BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/assets/landing/images|g' $LANDING_PAGE
+            sudo sed -i 's|images|https://${S3BucketName}.s3.${S3BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/assets/landing/images|g' $LANDING_PAGE
 
             # Inject the landing page branding label.
             sudo sed -i "s|{compliance-body}|$COMPLIANCE_BODY_LABEL|g" $LANDING_PAGE
@@ -428,13 +432,20 @@ Resources:
             sudo sed -i "s|{compliance-body-survey-link}|$COMPLIANCE_SURVEY_LINK|g" $LANDING_PAGE
 
             # Inject the security control matrix file location.
-            sudo sed -i "s|{compliance-body-matrix}|https://${QSS3BucketName}.s3.${QSS3BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/assets/$COMPLIANCE_MATRIX_FILENAME|g" $LANDING_PAGE
+            sudo sed -i "s|{compliance-body-matrix}|https://${S3BucketName}.s3.${S3BucketRegion}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/assets/$COMPLIANCE_MATRIX_FILENAME|g" $LANDING_PAGE
 
             # Upgrade PHP
             amazon-linux-extras enable php7.3
             yum update -y php
             service httpd restart
-          - QSS3BucketRegion: !Ref QSS3BucketRegion
+          - S3BucketName: !If
+              - UsingDefaultBucket
+              - !Sub 'aws-quickstart-${AWS::Region}'
+              - !Ref 'QSS3BucketName'
+            S3BucketRegion: !If
+              - UsingDefaultBucket
+              - !Ref 'AWS::Region'
+              - !Ref 'QSS3BucketRegion'
 
   LoadBalancer:
     Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
