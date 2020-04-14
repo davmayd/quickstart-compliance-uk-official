@@ -29,7 +29,7 @@ Parameters:
     MinLength: 8
     Type: String
   QSS3BucketRegion:
-    Default: 'eu-west-2'
+    Default: 'us-east-1'
     Description: Region your S3 Bucket is hosted in.
     Type: String
   QSS3BucketName:
