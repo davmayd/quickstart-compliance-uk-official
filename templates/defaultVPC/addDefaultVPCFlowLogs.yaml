@@ -4,11 +4,9 @@ Description: "Enable VPC flow logs on the default VPC"
 Resources:
   AddDefaultVPCFlowLogsLambda:
     Type: AWS::Lambda::Function
-    DependsOn:
-      - LambdaExecutionRole
     Properties:
       Code:
-        ZipFile: !Sub |
+        ZipFile: |
           import boto3
           import json
           import sys
@@ -201,7 +199,6 @@ Resources:
   AddDefaultVPCFlowLogs:
     Type: Custom::AddDefaultVPCFlowLogs
     DependsOn:
-      - AddDefaultVPCFlowLogsLambda
       - VPCFlowLogRole
     Properties:
       ServiceToken: !GetAtt AddDefaultVPCFlowLogsLambda.Arn

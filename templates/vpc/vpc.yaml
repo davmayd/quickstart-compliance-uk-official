@@ -5,6 +5,7 @@ Parameters:
     Type: String
     Default: 192.168.0.0/16
     Description: Supernet 
+    AllowedPattern: '((\d{1,3})\.){3}\d{1,3}/\d{1,2}'
   MakePublic:
     Type: String
     Default: false

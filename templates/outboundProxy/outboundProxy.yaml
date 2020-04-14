@@ -1,14 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Deploy a service on AWS Fargate, hosted in a private subnet, but accessible via a private NLB for outbound proxying
 Parameters:
-  ClusterName:
-    Type: String
-    Default: official-quickstart-cluster
-    Description: A name for the ECS cluster
-  ServiceName:
-    Type: String
-    Default: official-quickstart-outbound-proxies
-    Description: A name for the ECS service 
   InternetPrivateSubnetIdA:
     Type: String
     Description: Private Subnet Id A
@@ -59,16 +51,16 @@ Resources:
       VpcId: !Ref InternetVPCId
       SecurityGroupIngress:
       - IpProtocol: tcp
-        FromPort: '3128'
-        ToPort: '3128'
+        FromPort: 3128
+        ToPort: 3128
         CidrIp: 10.0.0.0/8
       - IpProtocol: tcp
-        FromPort: '3128'
-        ToPort: '3128'
+        FromPort: 3128
+        ToPort: 3128
         CidrIp: 172.16.0.0/12
       - IpProtocol: tcp
-        FromPort: '3128'
-        ToPort: '3128'
+        FromPort: 3128
+        ToPort: 3128
         CidrIp: 192.168.0.0/16
 
   ECSRole:
@@ -191,8 +183,6 @@ Resources:
       RoleARN: !GetAtt ServiceAutoScalingRole.Arn
       ScalableDimension: ecs:service:DesiredCount
       ServiceNamespace: ecs
-    DependsOn:
-      - ServiceAutoScalingRole
 
   DefaultServiceScaleOutPolicy:
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
@@ -207,7 +197,6 @@ Resources:
         StepAdjustments:
           - ScalingAdjustment: 1
             MetricIntervalLowerBound: 0
-    DependsOn: DefaultServiceScalingTarget
 
   DefaultServiceScaleInPolicy:
     Type: AWS::ApplicationAutoScaling::ScalingPolicy
@@ -222,7 +211,6 @@ Resources:
         StepAdjustments:
           - ScalingAdjustment: -1
             MetricIntervalUpperBound: 0
-    DependsOn: DefaultServiceScalingTarget
 
   DefaultServiceScaleOutAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -243,8 +231,6 @@ Resources:
           Value: !GetAtt OutboundProxyService.Name
       ComparisonOperator: GreaterThanThreshold
       MetricName: CPUUtilization
-    DependsOn:
-      - DefaultServiceScaleOutPolicy
 
   DefaultServiceScaleInAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -265,8 +251,6 @@ Resources:
           Value: !GetAtt OutboundProxyService.Name
       ComparisonOperator: LessThanThreshold
       MetricName: CPUUtilization
-    DependsOn:
-      - DefaultServiceScaleInPolicy
 
   OutboundProxyService:
     DependsOn:
@@ -301,16 +285,16 @@ Resources:
       VpcId: !Ref EndpointVPCId
       SecurityGroupIngress:
       - IpProtocol: tcp
-        FromPort: '3128'
-        ToPort: '3128'
+        FromPort: 3128
+        ToPort: 3128
         CidrIp: 10.0.0.0/8
       - IpProtocol: tcp
-        FromPort: '3128'
-        ToPort: '3128'
+        FromPort: 3128
+        ToPort: 3128
         CidrIp: 172.16.0.0/12
       - IpProtocol: tcp
-        FromPort: '3128'
-        ToPort: '3128'
+        FromPort: 3128
+        ToPort: 3128
         CidrIp: 192.168.0.0/16
 
   OutboundProxyEndpointService:

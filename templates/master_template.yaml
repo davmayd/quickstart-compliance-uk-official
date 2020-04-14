@@ -223,7 +223,6 @@ Resources:
         InternetVPCCidr: !Ref InternetVPCCidr
         SharedVPCCidr: !Ref SharedVPCCidr
         ProductionVPCCidr: !Ref ProductionVPCCidr
-        InternetVPCCidr: !Ref InternetVPCCidr
         InternetPrivateRT: !GetAtt InternetVPC.Outputs.PrivateRouteTable
         ProjectName: !Ref ProjectName
 
@@ -335,11 +334,10 @@ Resources:
         pAppInstanceType: t3.micro
         pDBPrivateSubnetA: !GetAtt ProductionVPC.Outputs.PrivateSubnetAId
         pDBPrivateSubnetB: !GetAtt ProductionVPC.Outputs.PrivateSubnetBId
-        pWebServerAMI: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
         pAppAmi: !FindInMap [RegionMap, !Ref "AWS::Region", HVM64]
         pDBName: wordpress
         pDBUser: dbuser
-        pDBPassword: password12345
+        pDBPassword: !Ref DBPassword
         pDBClass: db.t3.micro
         pDBAllocatedStorage: 10
         QSS3BucketName: !Sub

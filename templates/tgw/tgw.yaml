@@ -36,15 +36,19 @@ Parameters:
   EndpointVPCCidr:
     Type: String
     Description: Endpoint VPC CIDR
+    AllowedPattern: '((\d{1,3})\.){3}\d{1,3}/\d{1,2}'
   InternetVPCCidr:
     Type: String
-    Description: Internet VPC CIDR
+    Description: Internet VPC CIDR 
+    AllowedPattern: '((\d{1,3})\.){3}\d{1,3}/\d{1,2}'
   ProductionVPCCidr:
     Type: String
     Description: Production VPC CIDR
+    AllowedPattern: '((\d{1,3})\.){3}\d{1,3}/\d{1,2}'
   SharedVPCCidr:
     Type: String
     Description: Shared VPC CIDR
+    AllowedPattern: '((\d{1,3})\.){3}\d{1,3}/\d{1,2}'
   InternetPrivateRT:
     Type: String
   ProjectName:
@@ -177,16 +181,16 @@ Resources:
       VpcId: !Ref EndpointVPCId
       SecurityGroupIngress:
       - IpProtocol: tcp   
-        FromPort: '443'
-        ToPort: '443'
+        FromPort: 443
+        ToPort: 443
         CidrIp: 10.0.0.0/8
       - IpProtocol: tcp   
-        FromPort: '443'
-        ToPort: '443'
+        FromPort: 443
+        ToPort: 443
         CidrIp: 172.16.0.0/12
       - IpProtocol: tcp   
-        FromPort: '443'
-        ToPort: '443'
+        FromPort: 443
+        ToPort: 443
         CidrIp: 192.168.0.0/16
 
   S3Endpoint:

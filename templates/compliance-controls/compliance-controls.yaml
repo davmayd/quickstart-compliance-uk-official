@@ -123,11 +123,9 @@ Resources:
   # If enabled -> return
   EnableGuardDuty:
     Type: "AWS::Lambda::Function"
-    DependsOn:
-      - LambdaExecutionRole
     Properties:
       Code:
-        ZipFile: !Sub |
+        ZipFile: |
           import cfnresponse
           import boto3
           from os import environ
@@ -235,6 +233,7 @@ Resources:
 #### Enable Config and Security Hub
   ConfigBucket:
     DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::S3::Bucket
     Properties:
       BucketEncryption:
@@ -514,20 +513,21 @@ Resources:
       Role: !GetAtt 'LambdaRole.Arn'
       Runtime: 'python3.7'
       Timeout: 60
-  LambdaLogGroup:
+  LockDefaultSGLambdaFunctionLambdaLogGroup:
     Type: 'AWS::Logs::LogGroup'
     Properties:
       LogGroupName: !Sub '/aws/lambda/${LockDefaultSGLambdaFunction}'
       
   lockDefaultSecurityGroups:
     Type: 'Custom::lockDefaultSecurityGroups'
-    DependsOn: LambdaLogGroup
+    DependsOn: LockDefaultSGLambdaFunctionLambdaLogGroup
     Version: '1.0'
     Properties:
       ServiceToken: !GetAtt 'LockDefaultSGLambdaFunction.Arn'
 
   S3CloudTrailBucket:
     DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::S3::Bucket
 
   CloudTrailBucketPolicy:
@@ -651,10 +651,10 @@ Resources:
   cloudtrail:
     Type: "AWS::CloudTrail::Trail"
     Properties:
-      IncludeGlobalServiceEvents: "true"
-      IsMultiRegionTrail: "true"
+      IncludeGlobalServiceEvents: true
+      IsMultiRegionTrail: true
       KMSKeyId: !Ref CloudTrailKmsKey
-      EnableLogFileValidation: "true"
+      EnableLogFileValidation: true
       S3BucketName: !Ref S3CloudTrailBucket
       IsLogging: true
       CloudWatchLogsLogGroupArn: !GetAtt 'CloudTrailLogGroup.Arn'
@@ -691,10 +691,10 @@ Resources:
       MetricName: !Ref CisUnauthorizedApiCalls
       Namespace: CloudTrailMetrics
       ComparisonOperator: GreaterThanOrEqualToThreshold
-      EvaluationPeriods: '1'
-      Period: '300'
+      EvaluationPeriods: 1
+      Period: 300
       Statistic: Sum
-      Threshold: '1'
+      Threshold: 1
       TreatMissingData: notBreaching
 
   CisConsoleSigninWithoutMfa:
@@ -718,10 +718,10 @@ Resources:
       MetricName: !Ref CisConsoleSigninWithoutMfa
       Namespace: CloudTrailMetrics
       ComparisonOperator: GreaterThanOrEqualToThreshold
-      EvaluationPeriods: '1'
-      Period: '300'
+      EvaluationPeriods: 1
+      Period: 300
       Statistic: Sum
-      Threshold: '1'
+      Threshold: 1
       TreatMissingData: notBreaching
 
   CisRootAccountUsage:
@@ -745,10 +745,10 @@ Resources:
       MetricName: !Ref CisRootAccountUsage
       Namespace: CloudTrailMetrics
       ComparisonOperator: GreaterThanOrEqualToThreshold
-      EvaluationPeriods: '1'
-      Period: '300'
+      EvaluationPeriods: 1
+      Period: 300
       Statistic: Sum
-      Threshold: '1'
+      Threshold: 1
       TreatMissingData: notBreaching
 
   CisIAMPolicyChanges:
@@ -758,7 +758,7 @@ Resources:
       FilterPattern: '{($.eventName=DeleteGroupPolicy) || ($.eventName=DeleteRolePolicy) || ($.eventName=DeleteUserPolicy) || ($.eventName=PutGroupPolicy) || ($.eventName=PutRolePolicy) || ($.eventName=PutUserPolicy) || ($.eventName=CreatePolicy) || ($.eventName=DeletePolicy) || ($.eventName=CreatePolicyVersion) || ($.eventName=DeletePolicyVersion) || ($.eventName=AttachRolePolicy) || ($.eventName=DetachRolePolicy) || ($.eventName=AttachUserPolicy) || ($.eventName=DetachUserPolicy) || ($.eventName=AttachGroupPolicy) || ($.eventName=DetachGroupPolicy)}'
       MetricTransformations:
         -
-          MetricValue: "1"
+          MetricValue: '1'
           MetricNamespace: "LogMetrics"
           MetricName: "CIS-3.4-IAMPolicyChanges"
 
@@ -772,10 +772,10 @@ Resources:
       MetricName: !Ref CisIAMPolicyChanges
       Namespace: CloudTrailMetrics
       ComparisonOperator: GreaterThanOrEqualToThreshold
-      EvaluationPeriods: '1'
-      Period: '300'
+      EvaluationPeriods: 1
+      Period: 300
       Statistic: Sum
-      Threshold: '1'
+      Threshold: 1
       TreatMissingData: notBreaching
 
   CisCloudTrailChanges:
@@ -785,7 +785,7 @@ Resources:
       FilterPattern: '{($.eventName=CreateTrail) || ($.eventName=UpdateTrail) || ($.eventName=DeleteTrail) || ($.eventName=StartLogging) || ($.eventName=StopLogging)}'
       MetricTransformations:
         -
-          MetricValue: "1"
+          MetricValue: '1'
           MetricNamespace: "LogMetrics"
           MetricName: "CIS-3.5-CloudTrailChanges"
 
@@ -799,10 +799,10 @@ Resources:
       MetricName: !Ref CisCloudTrailChanges
       Namespace: CloudTrailMetrics
       ComparisonOperator: GreaterThanOrEqualToThreshold
-      EvaluationPeriods: '1'
-      Period: '300'
+      EvaluationPeriods: 1
+      Period: 300
       Statistic: Sum
-      Threshold: '1'
+      Threshold: 1
       TreatMissingData: notBreaching
 
   CisConsoleAuthenticationFailure:
@@ -812,7 +812,7 @@ Resources:
       FilterPattern: '{($.eventName=ConsoleLogin) && ($.errorMessage="Failed authentication")}'
       MetricTransformations:
         -
-          MetricValue: "1"
+          MetricValue: '1'
           MetricNamespace: "LogMetrics"
           MetricName: "CIS-3.6-ConsoleAuthenticationFailure"
 
@@ -826,10 +826,10 @@ Resources:
       MetricName: !Ref CisConsoleAuthenticationFailure
       Namespace: CloudTrailMetrics
       ComparisonOperator: GreaterThanOrEqualToThreshold
-      EvaluationPeriods: '1'
-      Period: '300'
+      EvaluationPeriods: 1
+      Period: 300
       Statistic: Sum
-      Threshold: '1'
+      Threshold: 1
       TreatMissingData: notBreaching
 
   CisDisableOrDeleteCMK:
@@ -839,7 +839,7 @@ Resources:
       FilterPattern: '{($.eventSource=kms.amazonaws.com) && (($.eventName=DisableKey) || ($.eventName=ScheduleKeyDeletion))}'
       MetricTransformations:
         -
-          MetricValue: "1"
+          MetricValue: '1'
           MetricNamespace: "LogMetrics"
           MetricName: "CIS-3.7-DisableOrDeleteCMK"
 
@@ -853,10 +853,10 @@ Resources:
       MetricName: !Ref CisDisableOrDeleteCMK
       Namespace: CloudTrailMetrics
       ComparisonOperator: GreaterThanOrEqualToThreshold
-      EvaluationPeriods: '1'
-      Period: '300'
+      EvaluationPeriods: 1
+      Period: 300
       Statistic: Sum
-      Threshold: '1'
+      Threshold: 1
       TreatMissingData: notBreaching
 
 Outputs:
