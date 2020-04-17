@@ -1,0 +1,23 @@
+project:
+  name: quickstart-compliance-uk-official
+  owner: quickstart-eng@amazon.com
+  package_lambda: false
+  regions:
+  - eu-west-2
+  s3_bucket: ''
+tests:
+  compl-uk-official:
+    parameters:
+      QSS3BucketName: $[taskcat_autobucket]
+      pAvailabilityZoneA: $[taskcat_getsingleaz_1]
+      pAvailabilityZoneB: $[taskcat_getsingleaz_2]
+      pDBPassword: $[taskcat_genpass_28]
+      pEC2KeyPair: $[taskcat_getkeypair]
+      pEC2KeyPairBastion: $[taskcat_getkeypair]
+      pNotifyEmail: distlist@example.org
+      pSupportsConfig: 'false'
+      pVPCTenancy: default
+    regions:
+    - eu-west-2
+    s3_bucket: ''
+    template: templates/main.template
