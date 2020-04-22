@@ -1,0 +1,23 @@
+project:
+  name: quickstart-microsoft-sql
+  owner: quickstart-eng@amazon.com
+  package_lambda: false
+  regions:
+  - eu-west-2
+  s3_bucket: ''
+tests:
+  ec2-li-2016:
+    parameters:
+      pDBPassword: $[taskcat_genpass_28]
+      pNotifyEmail: distlist@example.org
+      pEC2KeyPairBastion: $[taskcat_getkeypair]
+      pEC2KeyPair: $[taskcat_getkeypair]
+      pSupportsConfig: "false"
+      pAvailabilityZoneA: $[taskcat_getsingleaz_1]
+      pAvailabilityZoneB: $[taskcat_getsingleaz_2]
+      pVPCTenancy: default
+      QSS3BucketName: $[taskcat_autobucket]
+    regions:
+    - eu-west-2
+    s3_bucket: ''
+    template: templates/master_template.yaml
