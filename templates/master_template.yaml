@@ -29,8 +29,8 @@ Parameters:
     MinLength: 8
     Type: String
   QSS3BucketRegion:
-    Default: 'us-east-1'
-    Description: Region your S3 Bucket is hosted in.
+    Default: 'eu-west-2'
+    Description: 'The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.'
     Type: String
   QSS3BucketName:
     Type: String
@@ -54,9 +54,7 @@ Parameters:
     AllowedPattern: '^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'
 
 Conditions:
-  UsingDefaultBucket: !Equals
-    - !Ref QSS3BucketName
-    - 'aws-quickstart'
+  UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
       
 Mappings: 
   RegionMap: 
