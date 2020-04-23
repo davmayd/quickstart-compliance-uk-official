@@ -6,18 +6,13 @@ project:
   - eu-west-2
   s3_bucket: ''
 tests:
-  compiance-uk:
+  ec2-li-2016:
     parameters:
-      pDBPassword: $[taskcat_genpass_28]
-      pNotifyEmail: distlist@example.org
-      pEC2KeyPairBastion: $[taskcat_getkeypair]
-      pEC2KeyPair: $[taskcat_getkeypair]
-      pSupportsConfig: "false"
-      pAvailabilityZoneA: $[taskcat_getsingleaz_1]
-      pAvailabilityZoneB: $[taskcat_getsingleaz_2]
-      pVPCTenancy: default
+      DBPassword: $[taskcat_genpass_28]
+      CisAlertingEmail: distlist@example.org
       QSS3BucketName: $[taskcat_autobucket]
+      QSS3BucketRegion: $[taskcat_current_region]
     regions:
     - eu-west-2
     s3_bucket: ''
-    template: templates/main.template
+    template: templates/master_template.yaml
