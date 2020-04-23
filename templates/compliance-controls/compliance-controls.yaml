@@ -566,7 +566,6 @@ Resources:
           Principal:
             AWS:
             - !Sub arn:${AWS::Partition}:iam::${AWS::AccountId}:root
-            - !Sub arn:${AWS::Partition}:sts::${AWS::AccountId}:assumed-role/Isenguard-Admin/cjlIsengard
           Action: kms:*
           Resource: "*"
         - Sid: Allow CloudTrail to encrypt logs
