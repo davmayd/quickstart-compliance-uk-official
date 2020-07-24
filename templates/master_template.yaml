@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
-Description: "This cloudformation stack uses nested templates to deploy a cloud enviroment that can be used to mimic a customers on prem enviroment.  This can then be used to demonstrate how AWS services can integrate with on premise enviroments such as creating an VPN to connect the two or extending an existing Active Directory into AWS."
+Description: "This cloudformation stack uses nested templates to deploy a cloud enviroment that can be used to mimic a customers on prem enviroment.  This can then be used to demonstrate how AWS services can integrate with on premise enviroments such as creating an VPN to connect the two or extending an existing Active Directory into AWS. (qs-1qup6ra6l)"
 
 Parameters:
   ProjectName: 
