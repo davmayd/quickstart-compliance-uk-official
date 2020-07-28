@@ -1,0 +1,57 @@
+// Add steps as necessary for accessing the software, post-configuration, and testing. Don’t include full usage instructions for your software, but add links to your product documentation for that information.
+//Should any sections not be applicable, remove them
+
+== Test the deployment
+To test your deployment, choose the link for *LandingPageURL* from the *Outputs* tab for the main stack, as shown in Figure 1. A new page opens in your browser.
+
+This deployment builds a working demo of a multi-AZ WordPress site. To connect to the WordPress site, choose the URL provided for the WordPress application on the landing page. This URL is also available from the *WebsiteURL* link on the *Outputs* tab for the main stack.
+
+*Note:* WordPress is provided for testing and proof-of-concept purposes only; it is not intended for production use. You can replace it with another application of your choice.
+
+Th landing page URL brings up the WordPress welcome page.You can install and test the WordPress deployment from here.
+
+*Note:* The WordPress application included in this Quick Start deployment is for demo purposes only. Application-level security, including patching, operating system updates, and addressing application vulnerabilities, is the customer’s responsibility (see the https://aws.amazon.com/compliance/shared-responsibility-model/[AWS Shared Responsibility Model]). *For this Quick Start, we recommend that you delete the AWS CloudFormation stacks after your proof-of-concept demo or testing is complete.*
+
+== Deleting the stacks
+
+When you’ve finished using the baseline environment, you can delete the stacks. Deleting a stack, either via CLI and APIs or through the AWS CloudFormation console, removes all the resources created by the template for that stack. *The only exceptions are the S3 buckets for logging and backup. By default, the deletion policy for those buckets is set to “Retain,” so you have to delete them manually.*
+
+*Important:* This Quick Start deployment uses nested AWS CloudFormation templates, so deleting the main stack will remove the nested stacks and all associated resources.
+
+== Integrating with AWS Service Catalog
+
+You can add the AWS CloudFormation templates for this Quick Start to AWS Service Catalog as portfolios or products to manage them from a central location. This helps support consistent governance, security, and compliance requirements. It also enables users to quickly deploy only the approved IT services they need.
+
+For complete information about using AWS Service Catalog, see the http://aws.amazon.com/documentation/servicecatalog/[AWS documentation]. The following table provides links for specific tasks.
+
+[cols=",",options="header",]
+|===
+|To |See
+|Create a new portfolio |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-create.html[Creating and Deleting Portfolios]
+|Create a new product |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-products.html[Adding and Removing Products]
+|Give users access |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_portfolios_users.html[Granting Access to Users]
+|Assign IAM roles for deploying stacks a|
+http://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints-launch.html[Applying Launch Constraints]
+
+Make sure that the IAM role has a policy and trust relationship defined.
+
+|Assign tags to portfolios to track resource ownership, access, and cost allocations |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-tags.html[Tagging Portfolios]
+|Perform other administrative tasks |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/[AWS Service Catalog Administrator Guide]
+|Launch products from AWS Service Catalog |http://docs.aws.amazon.com/servicecatalog/latest/userguide/[AWS Service Catalog User Guide]
+|===tomer use the software on AWS._
+
+== Additional resources
+
+*AWS resources*
+
+* https://aws.amazon.com/getting-started/[Getting Started Resource Center]
+* https://docs.aws.amazon.com/general/latest/gr/[AWS General Reference]
+* https://docs.aws.amazon.com/general/latest/gr/glos-chap.html[AWS Glossary]
+
+*AWS services*
+
+* https://docs.aws.amazon.com/cloudformation/[AWS CloudFormation]
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html[Amazon EBS]
+* https://docs.aws.amazon.com/ec2/[Amazon EC2]
+* https://docs.aws.amazon.com/iam/[IAM]
+* https://docs.aws.amazon.com/vpc/[Amazon VPC]

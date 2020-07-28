@@ -1,0 +1,692 @@
+Standardized Architecture for UK-OFFICIAL in the AWS Cloud
+
+Quick Start Reference Deployment
+
+_January 2017 +
+_(link:#document-revisions[last update]: July 2020)
+
+AWS WWPS team
+
+Charlie Llewellyn, Chris King, Matt Johnson, Andrew Glenn
+
+____
+Visit our https://github.com/aws-quickstart/tbd[GitHub repository] for source files and to post feedback, +
+report bugs, or submit feature ideas for this Quick Start.
+____
+
+== Contents
+
+link:#overview[Overview 3]
+
+link:#uk-official-compliance-on-aws[UK-OFFICIAL compliance on AWS 3]
+
+link:#aws-enterprise-accelerator-compliance-architectures[AWS Enterprise Accelerator – compliance architectures 3]
+
+link:#uk-government-private-networks-connectivity[UK government private networks connectivity 4]
+
+link:#how-to-use-this-quick-start[How to use this Quick Start 4]
+
+link:#cost-and-licenses[Cost and licenses 4]
+
+link:#architecture[Architecture 5]
+
+link:#before-you-start-things-you-need-to-know[Before you start: Things you need to know 8]
+
+link:#support-for-aws-best-practices[Support for AWS best practices 8]
+
+link:#aws-cloudformation-templates[AWS CloudFormation templates 9]
+
+link:#aws-cloudformation-stacks[AWS CloudFormation stacks 9]
+
+link:#templates-used-in-this-quick-start[Templates used in this Quick Start 11]
+
+link:#managing-the-quick-start-source-files[Managing the Quick Start source files 12]
+
+link:#uploading-the-templates-to-amazon-s3[Uploading the templates to Amazon S3 12]
+
+link:#using-the-console[Using the console 12]
+
+link:#using-the-aws-cli[Using the AWS CLI 12]
+
+link:#updating-the-amazon-s3-urls[Updating the Amazon S3 URLs 13]
+
+link:#planning-the-deployment[Planning the deployment 13]
+
+link:#specialized-knowledge[Specialized knowledge 13]
+
+link:#aws-account[AWS account 13]
+
+link:#additional-considerations-for-production-workloads[Additional considerations for production workloads 14]
+
+link:#user-authentication-and-privileges[User authentication and privileges 14]
+
+link:#technical-requirements[Technical requirements 15]
+
+link:#deployment-options[Deployment options 16]
+
+link:#predeployment-steps[Predeployment steps 16]
+
+link:#review-aws-service-quotas[Review AWS service quotas 16]
+
+link:#create-amazon-ec2-key-pairs[Create Amazon EC2 key pairs 18]
+
+link:#deployment-steps[Deployment steps 19]
+
+link:#step-1.-sign-in-to-your-aws-account[Step 1. Sign in to your AWS account 20]
+
+link:#step-2.-launch-the-quick-start[Step 2. Launch the Quick Start 21]
+
+link:#step-3.-test-your-deployment[Step 3. Test your deployment 24]
+
+link:#deleting-the-stacks[Deleting the stacks 25]
+
+link:#integrating-with-aws-service-catalog[Integrating with AWS Service Catalog 25]
+
+link:#troubleshooting[Troubleshooting 26]
+
+link:#send-us-feedback[Send us feedback 27]
+
+link:#additional-resources[Additional resources 27]
+
+link:#document-revisions[Document revisions 28]
+
+This Quick Start was created by AWS World Wide Public Sector (WWPS) team in collaboration with Amazon Web Services (AWS).
+
+http://aws.amazon.com/quickstart/[Quick Starts] are automated reference deployments that use AWS CloudFormation templates to deploy key technologies on AWS, following AWS best practices.
+
+== Overview
+
+This Quick Start reference deployment guide discusses architectural considerations and steps for deploying security-focused baseline environments on the AWS) Cloud. Specifically, this Quick Start deploys a standardized environment that helps organizations adhere to guidelines set out by the UK National Cyber Security Centre (NCSC) for the Cloud Security Principles implementation.
+
+This Quick Start is for UK public sector customers who want to experiment with deploying services in AWS that can support data classified at OFFICIAL.
+
+*Please know that we may share who uses AWS Quick Starts with the AWS Partner Network (APN) Partner that collaborated with AWS on the content of the Quick Start.*
+
+=== UK-OFFICIAL compliance on AWS
+
+The deployment guide includes links for viewing and launching AWS CloudFormation templates that automate the deployment, a control mapping matrix and additional recommendations and references for extending the approach to incorporate additional requirements.
+
+The purpose of the AWS CloudFormation template is to provide an easily deployable reference architecture for evaluation and testing. Although the template covers many aspects of configuration to support UK-OFFICIAL workloads, it is not intended for production workloads without appropriate review and validation.
+
+Furthermore, organizations will have to consider their own risk, tolerance and internal/external requirements before they can define and implement an AWS multi-account strategy, connectivity with other systems and networks, user authentication workflows, encryption methodologies, logging and auditing requirements and similar components of the architecture. We recommend that you customize the AWS CloudFormation template to meet your own needs in order to obtain a repeatable and auditable reference architecture.
+
+=== AWS Enterprise Accelerator – compliance architectures 
+
+https://aws.amazon.com/professional-services/enterprise-accelerators/[AWS Enterprise Accelerator – compliance] solutions help streamline, automate, and implement secure baselines in AWS—from initial design to operational security readiness. They incorporate the expertise of AWS solutions architects, security, and compliance personnel to help you build a secure and reliable architecture through automation.
+
+This Quick Start includes AWS CloudFormation templates, which can be integrated with AWS Service Catalog, to automate building a standardized baseline architecture that aligns with the NCSC Cloud Security Principles. It also includes a security controls matrix, which maps the security controls and requirements to architecture decisions, features, and configuration of the baseline to enhance your organization’s ability to understand and assess the system security configuration.
+
+=== UK government private networks connectivity
+
+AWS customers who require connectivity with special purpose networks—such as Public Services Network (PSN) for public sector organizations, N3 for English National Health Service (NHS), and Janet for education and research—need to implement enhanced network segmentation and isolation. This is because these networks are restricted to organizations that have implemented the required set of technical and legal controls as required by the network operators.
+
+AWS has worked with the UK government private networks providers to develop a set of best practices integrated with architecture pattern defined below for public sector organizations to easily connect to these networks. Contact AWS for guidance.
+
+=== How to use this Quick Start
+
+You can build an environment that serves as an example for learning, as a prototyping environment, or as a baseline for customization.
+
+Since AWS provides a mature set of configuration options (and new services are being released all the time), this Quick Start provides security templates that you can use for your own environment. These security templates (in the form of AWS CloudFormation templates) provide a comprehensive rule set that can be systematically enforced. You can use these templates as a starting point and customize them to match your specific use cases.
+
+As mentioned in the Additional considerations for production workloads section, this template is intended to be used for production workloads only with thorough review, validation, and inclusion of your own business and technical requirements.
+
+=== Cost and licenses
+
+You are responsible for the cost of the AWS services used while running this Quick Start reference deployment. There is no additional cost for using the Quick Start.
+
+The AWS CloudFormation template for this Quick Start includes configuration parameters that you can customize. Some of these settings, such as instance type, affect the cost of deployment. For cost estimates, see the pricing pages for each AWS service you will use. Prices are subject to change.
+
+*Tip:* After you deploy the Quick Start, we recommend that you enable the https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html[AWS Cost and Usage Report] to track costs associated with the Quick Start. This report delivers billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month, and finalizes the data at the end of the month. For more information about the report, see the https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html[AWS documentation].
+
+== Architecture
+
+Deploying this Quick Start builds a multi-VPC network topology, a sample LAMP application and a scalable containerized outbound proxy solution in the AWS Cloud, as illustrated in Figures 2, 3 and 4.
+
+image:~/development/quickstarts/mine/compliance-uk-official/docs/images/media/image2.tiff[image,width=717,height=440]
+
+Figure 2: AWS VPC design depicting integration of a production VPC to host application services, an internet VPC to provide both inbound and outbound connectivity (This could also be replaced or enhanced to feature connectivity to a private government network), a shared services VPC to support common tooling e.g. active directory, an endpoint VPC to provide consolidated access to AWS services and outbound access to the internet.
+
+image:~/development/quickstarts/mine/compliance-uk-official/docs/images/media/image4.tiff[image,width=525,height=732]
+
+Figure 3: Production VPC depicting integration with internet VPC for inbound communication to the sample application via AWS PrivateLink
+
+image:~/development/quickstarts/mine/compliance-uk-official/docs/images/media/image6.tiff[image,width=762,height=505]
+
+Figure 4: Production VPC depicting outbound access to the internet via the endpoint VPC, which passes requests to an autoscaling proxy service
+
+The sample architecture includes the following components and features:
+
+* Basic AWS Identity and Access Management (IAM) configuration with custom IAM policies, with associated groups, roles, and instance profiles.
+* An external-facing Amazon Virtual Private Cloud (Amazon VPC) for controlled internet access with multi-AZ architecture and separate public and private communication.
+* An internal-facing Amazon VPC for shared services (for example active directory) with multi-AZ architecture and private subnets to support shared services.
+* An Internal-facing Amazon VPC for PrivateLink endpoints to allow direct access to AWS services over the AWS backbone with multi-AZ architecture and private subnets to support shared services.
+* An Internal-facing Amazon VPC for application workloads with multi-AZ architecture and private subnets to support shared services.
+* AWS Transit Gateway for inter-VPC communication and VPN termination.
+* Standard Amazon VPC security groups for Amazon Elastic Compute Cloud (Amazon EC2) instances, load balancers and endpoints used in the sample application stack.
+* LAMP application using Auto Scaling and Elastic Load Balancing, which can be modified and/or bootstrapped with customer application.
+* AWS Systems Manager, a sessions manager for administrative access to instances.
+* Logging, monitoring, and alerts using AWS CloudTrail, Amazon CloudWatch, and AWS Config rules.
+* Route 53 resolver to manage shared private DNS for shared services and endpoints across VPCs.
+* AWS Certificate manager to store and deploy SSL certificates to endpoints to enable encryption in transit.
+* Capture and analysis of security events and compliance status using AWS GuardDuty.
+* Audit compliance state across AWS with AWS Security Hub.
+
+=== 
+
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+
+* {blank}
+
+== Before you start: Things you need to know
+
+=== Support for AWS best practices
+
+The architecture built by this Quick Start supports AWS best practices for high availability and security:
+
+* Multi-AZ architecture intended for high availability.
+* Isolation of instances between private/public subnets.
+* Security groups limiting access to only necessary services and ports.
+* Network access control list (ACL) rules to filter traffic into subnets as an additional layer of network security.
+* Management of instances through managed services to facilitate restricted login access for system administrator actions.
+* NAT gateways, PrivateLink, and proxies to manage internet access.
+* Serverless containers to provide explicit outbound proxy functionality.
+* Standard IAM policies with associated groups and roles, exercising least privilege.
+* Monitoring and logging; alerts and notifications for critical events such as logging of root activity, IAM changes, and changes to logging policies.
+* S3 buckets (with security features enabled) for logging and archive.
+* Implementation of proper load balancing and Auto Scaling capabilities.
+* HTTPS-enabled Application Load Balancing (ALB) load balancers with hardened security policy (A self-signed certificate is automatically generated for testing purposes.)
+* Amazon RDS database with backup and encryption.
+
+=== AWS CloudFormation templates
+
+The CloudFormation templates included in this Quick Start are a YAML-formatted text file that describes the AWS infrastructure needed to run an application or service along with any interconnections among infrastructure components. YAML (YAML Ain’t Markup Language) is a human-friendly data serialization standard for all programming languages. You can deploy a template and its associated collection of resources (called a _stack_) by using the AWS Management Console, the AWS Command Line Interface (AWS CLI), or the AWS CloudFormation API. AWS CloudFormation is available at no additional charge, and you pay only for the AWS resources needed to run your applications. Resources can consist of any AWS resource you define within the template. For a complete list of resources that can be defined within an AWS CloudFormation template, see the http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html[AWS Resource Types Reference] in the AWS documentation.
+
+=== AWS CloudFormation stacks
+
+When you use AWS CloudFormation, you manage related resources as a single unit called a http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html[stack]. In other words, you create, update, and delete a collection of resources by creating, updating, and deleting stacks. All the resources in a stack are defined by the stack’s AWS CloudFormation template.
+
+To update resources, you first modify the stack templates and then update the stack by submitting the modified template. You can work with stacks by using the https://console.aws.amazon.com/cloudformation/[AWS CloudFormation console], http://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/[AWS CloudFormation API], or http://docs.aws.amazon.com/cli/latest/reference/cloudformation[AWS CLI].
+
+For more information about AWS CloudFormation and stacks, see http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/GettingStarted.Walkthrough.html[Get Started] in the AWS CloudFormation documentation.
+
+=== Templates used in this Quick Start
+
+This Quick Start uses nested AWS CloudFormation templates to deploy the link:#architecture[architecture] for a multi-tier, Linux-based web application.
+
+The Quick Start consists of a main template and seven child templates: IAM, logging, production VPC, management VPC, config rules, NAT instance, and application. These templates, listed in the table below, deploy the architecture within stacks that align with AWS best practices and the security compliance framework.
+
+[cols=",,",options="header",]
+|===
+|Stack and template |Description |Dependencies
+a|
+Main stack
+
+(https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/templates/main.template[master_template.yaml)]
+
+|Primary template file that deploys the rest of the stacks and passes parameters between nested templates automatically. |None
+a|
+VPC stack
+
+https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/submodules/quickstart-compliance-common/templates/iam.template[(vpc.yaml])
+
+|Customisable template to deploy secure VPCs. |None
+a|
+Networking stack
+
+https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/submodules/quickstart-compliance-common/templates/logging.template[(tgw.yaml)]
+
+|Sets up the transit gateway and VPC endpoints that provides network connectivity between the VPC’s and between VPC’s and AWS services. |VPC stack
+a|
+Outbound proxy stack
+
+https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/submodules/quickstart-compliance-common/templates/vpc-production.template[(outboundProxy.yaml)]
+
+|Configures a scaleable outbound containerized proxy service on Fargate to allow applications to securely connect to the internet. |Networking sStack
+a|
+Compliance Controls stack
+
+https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/submodules/quickstart-compliance-common/templates/vpc-management.template[(compliance-controls.yaml)]
+
+|Configures a number of good practices to adhere to the CIS benchmarks measured by AWS Security Hub. |VPC stack
+a|
+Clean-up of the default VPC stack
+
+https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/submodules/quickstart-compliance-common/templates/vpc-management.template[(compliance-controls.yaml)]
+
+|Configures VPC best practices for OFFICIAL data in any pre-existing defaults VPC that may already be created |VPC stack
+a|
+Application stack
+
+https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/submodules/quickstart-compliance-common/templates/config-rules.template[(sampleApplication.yaml)]
+
+|Sets up EC2, instances, web application, an Amazon RDS database, HTTPS Application Load Balancing, Amazon CloudWatch alarms, and Auto Scaling groups. |Outbound proxy stack
+|===
+
+The AWS CloudFormation template *master_template.yaml* is the entry point for launching the entire architecture, and also allows parameters to be passed into each of the nested stacks. The templates for those nested stacks deploy the resources for the architecture.
+
+To deploy the entire architecture (including IAM and Amazon VPC), use *master_template.yaml* when launching the stacks. To deploy the full package, the IAM user must have permissions to deploy the resources each template creates, which includes IAM configuration for groups and roles.
+
+You can also edit *master_template.yaml* to customize stacks or to omit stacks to be deployed. This can be useful for provisioning teams who must deploy the initial base architecture in accounts for application owners. For more information about deployment options and use cases, see link:#_Deployment_Scenarios_2[Deployment methods].
+
+Additionally, you can deploy each stack independently. However, this requires that you pass individual parameters to each template upon launch, instead of relying on the main template to pass these values automatically.
+
+=== Managing the Quick Start source files
+
+We’ve provided https://github.com/aws-quickstart/quickstart-enterprise-accelerator-uk-official[a GitHub repository] for the tools and templates for this Quick Start so you can modify, extend, and customize them to meet your needs. You can also use your own Git or Apache Subversion source code repository, or use https://aws.amazon.com/codecommit/[AWS CodeCommit]. This is recommended to ensure proper version control, developer collaboration, and documentation of updates.
+
+=== Uploading the templates to Amazon S3 
+
+If you’re using your own S3 bucket, you can upload the AWS CloudFormation templates by using the AWS Management Console or the AWS CLI, by following these instructions.
+
+==== Using the console
+
+[arabic]
+. Sign in to the AWS Management Console and open the Amazon S3 console at https://console.aws.amazon.com/s3/.
+. Choose a bucket to store the templates in.
+. Choose *Upload* and specify the local location of the file to upload.
+. Upload all template files to the same S3 bucket.
+. Find the template URLs by selecting each template file, and then choosing *Properties*. Make a note of the URLs.
+
+==== Using the AWS CLI
+
+[arabic]
+. Download the AWS CLI tool from http://aws.amazon.com/cli/.
+
+[arabic, start=6]
+. Use the following AWS CLI command to upload each template file, swapping in your information for <__template file__> and <__s3bucketname__>:
+
+aws s3 cp <template file>.yaml s3://<s3bucketname>/
+
+=== Updating the Amazon S3 URLs
+
+The template for the main stack lists the Amazon S3 URLs for the nested stacks. If you upload the templates to your own S3 bucket and would like to deploy the templates from there, you must modify the Resources section of the *master_template.yaml* file.
+
+== Planning the deployment
+
+=== Specialized knowledge
+
+This Quick Start requires a moderate to high level of understanding of the process to achieve and manage control requirements and compliance processes associated with UK-OFFICIAL workloads within a traditional hosting environment.
+
+Additionally, this solution is targeted at information technology (IT) assessors and security personnel, and assumes familiarity with basic security concepts in the area of networking, operating systems, data encryption, operational controls, and cloud computing services.
+
+This deployment guide also requires a moderate level of understanding of AWS services and requires the following, at a minimum:
+
+* Access to a current AWS account with IAM administrator-level permissions
+* Basic understanding of AWS services, AWS service quotas, and AWS CloudFormation
+* Knowledge of architecting applications on AWS
+* Understanding of security and compliance requirements in the customer organization
+
+This deployment guide also requires a moderate level of familiarity with AWS services. If you’re new to AWS, visit the https://aws.amazon.com/getting-started/[Getting Started Resource Center] and the https://aws.amazon.com/training/[AWS Training and Certification website] for materials and programs that can help you develop the skills to design, deploy, and operate your infrastructure and applications on the AWS Cloud.
+
+=== AWS account
+
+If you don’t already have an AWS account, create one at https://aws.amazon.com/[https://aws.amazon.com] by following the on-screen instructions. Part of the sign-up process involves receiving a phone call and entering a PIN using the phone keypad.
+
+Your AWS account is automatically signed up for all AWS services. You are charged only for the services you use.
+
+==== Additional considerations for production workloads
+
+A very important aspect of any AWS-based solution relates to the AWS accounts strategy. The section above describes the simple process for creating a single AWS account you can use to deploy the template for testing purposes. However, for production environments, we recommend that you adopt a multi-account strategy in order to maximize operational efficiency, finance management and reporting, security, auditability, and an effective implementation of security best practices.
+
+For instance, your AWS accounts setup could include the following:
+
+* Billing account (containing an Amazon S3 bucket to hold financial reporting only)
+* Development account
+* Production account
+* Logging account (containing Amazon S3 bucket(s) to hold logs only)
+* Auditing account (to provide read access to everything for auditors/accreditors)
+* User account (to manage user identities)
+
+Additionally, regardless of which setup you choose, configure each AWS account by following the recommendations in the https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf[CIS foundation benchmark for AWS], as appropriate.
+
+==== User authentication and privileges
+
+Whenever possible, users should be authenticated via federation (e.g. SAML) with a customer existing identity provider (IdP), as described in the http://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers.html[AWS IAM documentation], in order to avoid the proliferation of multiple IdPs – unless AWS identity services are used as your authoritative IdP. Furthermore, you should use http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html[temporary user credentials] to control access to AWS resources, and granting users one default permission only, which is the http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_control-access_assumerole.html[AssumeRole] permission. AWS IAM can then be used to manage users-to-roles mapping.
+
+In this way, user identities will be managed in a consistent manner, and the credentials used to access AWS resources will be dynamically generated and limited in time, reducing the attack surface and improving the overall security posture. This is in line with the recommendations included in the https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf[CIS foundation benchmark for AWS] and security best practices.
+
+=== Technical requirements
+
+Before you launch the Quick Start, your account must be configured as specified in the following table. Otherwise, deployment might fail.
+
+[cols=",",]
+|===
+|http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html[Resources] a|
+If necessary, request service quota increases for the following resources. You might need to do this if an existing deployment uses these resources, and you might exceed the default quotas with this deployment. For more information, see the https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html[AWS documentation].
+
+[cols=",",options="header",]
+|===
+|Resource |This deployment uses
+|VPCs |4
+|Elastic IP addresses |1
+|IAM security groups |10
+|IAM roles |14
+|Auto Scaling groups |1
+|Application Load Balancers |1
+|Network Load Balancers |2
+|t3.micro instances |7
+|db.t3.micro |2
+|===
+
+|https://aws.amazon.com/about-aws/global-infrastructure/[Regions] |This deployment includes <names of service or services, if any>, which <isn’t or aren’t> currently supported in all AWS Regions. For a current list of supported Regions for <this service>, see the https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html[service endpoints and quotas] page in the AWS documentation.
+|https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html[Key pair] a|
+Make sure that at least one Amazon EC2 key pair exists in your AWS account in the Region where you are planning to deploy the Quick Start. Make note of the key pair name. You’ll be prompted for this information during deployment. To create a key pair, follow the https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html[instructions in the AWS documentation].
+
+For testing or proof-of-concept purposes, we recommend creating a new key pair instead of using one that’s already being used by a production instance.
+
+|https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html[IAM permissions] |Before launching the Quick Start, you must log in to the AWS Management Console with IAM permissions for the resources and actions the templates deploy. The _AdministratorAccess_ managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.
+|http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html[S3 buckets] |Unique S3 bucket names are automatically generated based on the account number and Region. If you delete a stack, *the logging buckets are not deleted* (to support security review). If you plan to re-deploy this Quick Start in the same Region, you must first manually delete the S3 buckets that were created during the previous deployment; *otherwise, the re-deployment will fail*.
+|http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html[Amazon S3 URLs] |If you’re copying the templates to your own S3 bucket for deployment, make sure that you update the Resources section of the *master_template.yaml* file. *Otherwise,* *deployment will fail*.
+|===
+
+=== Deployment options
+
+This Quick Start provides two deployment options, both of which deploy new VPCs and resources:
+
+* *Deploy using AWS CLI commands or AWS Management Console*. We’ve provided step-by-step instructions for the AWS Management Console deployment option in the following sections.
+* *Deploy using AWS Service Catalog*. This option enables a self-service model for deploying applications and architecture on AWS. You can create portfolios that include one or more products, which are defined by AWS CloudFormation templates. You can grant IAM users, groups, or roles access to specific portfolios, which they can then launch from a separate interface.
+
+The Quick Start provides separate templates for these options. It also lets you configure CIDR blocks, instance types, and settings, as discussed later in this guide.
+
+=== Predeployment steps
+
+Before you deploy the templates included with this Quick Start, do the following:
+
+* If you’re deploying into a Region where AWS Config is available, manually set up AWS Config in the AWS Config console.
+* Review the AWS service quotas and *create Amazon EC2 key pairs, as documented in the following sections*.
+
+==== Review AWS service quotas
+
+Review the service quotas and service usage of your AWS account and, if required, request increases to ensure that there is available capacity to launch this Quick Start’s resources in your account. To do so, use the AWS Trusted Advisor console and the Amazon EC2 console. You’ll need the resources specified in the link:\l[This cross-reference doesn’t work.This comment is addressed automatically via mechanisms in Docs2.0**Error! Hyperlink reference not valid.**technical] requirements table.
+
+Use Trusted Advisor to view the existing service quotas for Amazon VPC, IAM groups, and IAM roles within your account, and ensure that there is availability to deploy additional resources:
+
+[arabic, start=2]
+. Open the Trusted Advisor console at https://console.aws.amazon.com/trustedadvisor/.
+. In the navigation pane, choose *Service Limits*.
+. Scroll through the service limit names and compare the *Limit Amount* column to the *Current Usage* column, to ensure that you have available capacity to support the deployment, as stated in link:#overview[Technical requirements] table.
+
+If an increase is needed, you can choose the limit name to open the limit increase request form shown in Figure 4.
+
+image:~/development/quickstarts/mine/compliance-uk-official/docs/images/media/image8.png[image,width=648,height=416]
+
+Figure 4: Requesting a service limit increase
+
+Now use the Amazon EC2 console to check your limits for Elastic IP addresses, load balancers, and Auto Scaling groups:
+
+[arabic, start=5]
+. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/.
+
+[arabic, start=7]
+. In the navigation pane, under *Network & Security*, choose *Elastic IPs*.
+. Count the number of allocated Elastic IP addresses (if any) displayed in the list, and ensure that you can allocate three (3) more without exceeding the default limit of 5 (or the limit increase you previously requested).
+. In the navigation pane, under *Load Balancing*, choose *Load Balancers*.
+. Count the number of existing load balancers (if any) displayed in the list and ensure that you can create two (2) more without exceeding the default limit of 20 (or the limit increase you previously requested).
+. In the navigation pane, under *Auto Scaling*, choose *Auto Scaling Groups*.
+. Count the number of existing Auto Scaling groups (if any) displayed in the list and ensure that you can create two (2) more without exceeding the default limit of 20 (or the limit increase you previously requested).
+
+==== Create Amazon EC2 key pairs
+
+Make sure that your AWS account is set up with at least one SSH http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html[key pair] (preferably two separate key pairs) **in the AWS Region where you plan to deploy**__,__ for use with the bastion login host and other Amazon EC2 hosts.
+
+[arabic]
+. Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/.
+. Use the Region selector in the navigation bar to choose the AWS Region where you plan to deploy.
+. In the navigation pane, under *Network & Security*, choose *Key Pairs*.
+. In the key pair list, verify that at least one available key pair (but preferably two available key pairs) exist and make note of the key pair name(s). You’ll need to provide a key pair name for the parameters *pEC2KeyPairBastion* (for bastion host login access) and *pEC2KeyPair* (for all other Amazon EC2 host login access) when you launch the Quick Start. Although you can use the same key pair for both parameters, we recommend that you use a different key pair for each.
+
+If you want to create a new key pair, choose *Create Key Pair*. For additional information, see the http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#having-ec2-create-your-key-pair[Amazon EC2 documentation].
+
+image:~/development/quickstarts/mine/compliance-uk-official/docs/images/media/image9.png[image,width=407,height=104]
+
+Figure 5: Creating a key pair
+
+*Note:* If you’re deploying the Quick Start for testing or proof of concept, we recommend that you create a new key pair instead of specifying a key pair that’s already being used by a production instance.
+
+== Deployment steps
+
+=== 
+
+* {blank}
+* {blank}
+
+=== 
+
+* {blank}
+* {blank}
+* {blank}
+* {blank}
+
+=== 
+
+* {blank}
+
+=== Step 1. Sign in to your AWS account
+
+[arabic, start=5]
+. Sign in to your AWS account at http://aws.amazon.com with an IAM user role that has the appropriate privileges. See Planning the deployment earlier in this guide.
+. Make sure that your AWS account is configured correctly, as discussed in the link:\l[Technical Requirements] and link:\l[Predeployment steps] sections. If you plan to use an AWS Region with the AWS Config capability, you must first set up the AWS Config service manually by following the instructions in the link:\l[previous section].
+. Use the Region selector in the navigation bar to choose the AWS Region where you want to deploy the Quick Start architecture on AWS.
+
+Amazon EC2 locations are composed of http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html[_Regions_ and _Availability Zones_]. Regions are dispersed and located in separate geographic areas. This Quick Start uses the *t3.micro* instance type for the WordPress portion of the deployment.
+
+image:~/development/quickstarts/mine/compliance-uk-official/docs/images/media/image10.png[image,width=132,height=321]
+
+Figure 10: Choosing an AWS Region
+
+[arabic, start=13]
+. Select the key pair that you created link:#create-amazon-ec2-key-pairs[earlier]. In the navigation pane of the Amazon EC2 console, choose *Key Pairs*, and then choose the key pair from the list.
+
+=== Step 2. Launch the Quick Start
+
+*Note*: You are responsible for the cost of the AWS services used while running this Quick Start reference deployment. There is no additional cost for using this Quick Start. As of the date of publication, the cost for using the Quick Start with default settings is approximately $0.96 an hour, and you can complete the initial deployment for about $3.00. Prices are subject to change. See the pricing pages for each AWS service you will be using in this Quick Start for full details.
+
+This step walks through the AWS Management Console deployment option. To learn about other options, see Deployment options.
+
+[arabic, start=8]
+. While signed in to your AWS account, https://console.aws.amazon.com/cloudformation/home?region=eu-west-2#cstack=sn%7EEnterprise-Accelerator-UK-Official%7Cturl%7Ehttps://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/templates/main.template[launch the AWS CloudFormation template].
+
+The template will be deployed into the Europe (London) Region. You can change the Region by using the Region selector in the navigation bar. Note that if you select a Region where AWS Config is available, make sure to manually initialize the AWS Config service in that Region.
+
+The stacks take approximately 40 minutes to create.
+
+You can also https://s3.amazonaws.com/quickstart-reference/enterprise-accelerator/uk/official/latest/templates/main.template[download the template] to use it as a starting point for your customization.
+
+[arabic, start=14]
+. {blank}
+
+Check the AWS Region that’s displayed in the upper-right corner of the navigation bar, and change it if necessary. This is where the network infrastructure for will be built. The template is launched in the us-east-1 Region by default. *Note:* Since this is designed for use by UK Public Sector customers we suggest changing to the eu-west-2 region.
+
+[arabic, start=15]
+. {blank}
+. On the *Create stack* page, keep the default settings for the template URL, and then choose *Next*. On the *Specify stack details* page, provide the seven required parameter values for the template. These are described in the following table.
+
+View template
+
+[cols=",,",options="header",]
+|===
+|Parameter label (name) |Default |Description
+a|
+Project Name
+
+(ProjectName)
+
+|official-quickstart |Project Name used to tag resources for cost attribution.
+a|
+Internet VPC Cidr
+
+(InternetVPCCidr)
+
+|10.0.0.0/16 |CIDR used for the internet VPC.
+a|
+Shared services VPC Cidr
+
+(SharedVPCCidr)
+
+|10.10.0.0/16 |CIDR used for the shared services VPC.
+a|
+Production VPC Cidr
+
+(ProductionVPCCidr)
+
+|172.16.0.0/16 |CIDR used for the production VPC used to host the sample application.
+a|
+Endpoint VPC Cidr
+
+(EndpointVPCCidr)
+
+|192.168.0.0/16 |CIDR used for the endpoint VPC.
+|Database Password +
+(DBPassword) |_Requires input_ |Password for the database administrator account. This must be a https://www.ncsc.gov.uk/guidance/password-collection[complex password] that’s between 8 and 28 mixed, alphanumeric characters.
+|CIS alerting emails +
+(CisAlertingEmail) |_Requires input_ |Email address that will be subscribed to alerting emails for CIS compliance controls.
+|===
+
+_AWS Quick Start Configuration:_
+
+*Note:* We recommend keeping these default settings for the “AWS Quick Start configuration” parameters unless you are customizing the Quick Start templates for your own deployment projects. Changing these parameter settings automatically updates code references to point to a new Quick Start location. For details, see the https://aws-quickstart.github.io/option1.html[AWS Quick Start Contributor’s Guide].
+
+[cols=",,",options="header",]
+|===
+|Parameter label (name) |Default |Description
+|Quick Start S3 bucket name +
+(QSS3BucketName) |quickstart-reference |S3 bucket name for the Quick Start assets. This bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-), but should not start or end with a hyphen. You can specify your own bucket if you copy all of the assets and submodules into it, if you want to override the Quick Start behavior for your specific implementation.
+|Quick Start S3 bucket name +
+(QSS3BucketName) |quickstart-reference |S3 bucket name for the Quick Start assets. This bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-), but should not start or end with a hyphen. You can specify your own bucket if you copy all of the assets and submodules into it, if you want to override the Quick Start behavior for your specific implementation.
+|Quick Start S3 key prefix +
+(QSS3KeyPrefix) |enterprise-accelerator/uk/ +
+official/latest |S3 key prefix for the Quick Start assets. This prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slashes (/), but should not start or end with a forward slash (which is automatically added). This parameter enables you to override the Quick Start behavior for your specific implementation.
+|===
+
+*Note*: You can also download the main template and edit it to create your own parameters based on your specific deployment scenario.
+
+[arabic, start=17]
+. When you finish reviewing and customizing the parameters, choose *Next*.
+. On the options page, you can https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html[specify tags] (key-value pairs) for resources in your stack and https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html[set additional options]. You can use the tags to organize and control access to resources in the stacks. When you’re done, choose *Next*.
+. On the *Review* page, review the settings and confirm the template settings. Under *Capabilities*, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.
+. Choose *Create* *stack* to deploy the stack.
+. Monitor the status of the stack being deployed. When the status is *CREATE_COMPLETE* for all the stacks deployed, the cluster for this reference architecture is ready. Since you’re deploying the full architecture, you’ll see eight stacks listed (for the main template and seven nested templates).
+. Use the URLs displayed in the *Outputs* tab for the stack, as shown in Figure <x>, to view the resources that were created.
+
+image:~/development/quickstarts/mine/compliance-uk-official/docs/images/media/image14.png[image,width=645,height=366]
+
+Figure <x>: Outputs after successful deployment
+
+=== Step 3. Test your deployment
+
+To test your deployment, choose the link for *LandingPageURL* from the *Outputs* tab for the main stack, as shown in Figure <x>. A new page opens in your browser.
+
+This deployment builds a working demo of a multi-AZ WordPress site. To connect to the WordPress site, choose the URL provided for the WordPress application on the landing page. This URL is also available from the *WebsiteURL* link on the *Outputs* tab for the main stack.
+
+*Note:* WordPress is provided for testing and proof-of-concept purposes only; it is not intended for production use. You can replace it with another application of your choice.
+
+Th landing page URL brings up the WordPress welcome page.You can install and test the WordPress deployment from here.
+
+*Note:* The WordPress application included in this Quick Start deployment is for demo purposes only. Application-level security, including patching, operating system updates, and addressing application vulnerabilities, is the customer’s responsibility (see the https://aws.amazon.com/compliance/shared-responsibility-model/[AWS Shared Responsibility Model]). *For this Quick Start, we recommend that you delete the AWS CloudFormation stacks after your proof-of-concept demo or testing is complete.*
+
+Now that you’ve deployed and tested the NIST architecture on AWS, please take a few minutes to complete our https://aws.au1.qualtrics.com/SE/?SID=SV_55sYYdtY1NhTTgN&qs=uk-official[survey] for this Quick Start. Your response is anonymous and will help us improve AWS Enterprise Accelerator – Compliance reference deployments.
+
+== Deleting the stacks
+
+When you’ve finished using the baseline environment, you can delete the stacks. Deleting a stack, either via CLI and APIs or through the AWS CloudFormation console, removes all the resources created by the template for that stack. *The only exceptions are the S3 buckets for logging and backup. By default, the deletion policy for those buckets is set to “Retain,” so you have to delete them manually.*
+
+*Important:* This Quick Start deployment uses nested AWS CloudFormation templates, so deleting the main stack will remove the nested stacks and all associated resources.
+
+== Integrating with AWS Service Catalog
+
+You can add the AWS CloudFormation templates for this Quick Start to AWS Service Catalog as portfolios or products to manage them from a central location. This helps support consistent governance, security, and compliance requirements. It also enables users to quickly deploy only the approved IT services they need.
+
+For complete information about using AWS Service Catalog, see the http://aws.amazon.com/documentation/servicecatalog/[AWS documentation]. The following table provides links for specific tasks.
+
+[cols=",",options="header",]
+|===
+|To |See
+|Create a new portfolio |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-create.html[Creating and Deleting Portfolios]
+|Create a new product |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-products.html[Adding and Removing Products]
+|Give users access |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_portfolios_users.html[Granting Access to Users]
+|Assign IAM roles for deploying stacks a|
+http://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints-launch.html[Applying Launch Constraints]
+
+Make sure that the IAM role has a policy and trust relationship defined.
+
+|Assign tags to portfolios to track resource ownership, access, and cost allocations |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-tags.html[Tagging Portfolios]
+|Perform other administrative tasks |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/[AWS Service Catalog Administrator Guide]
+|Launch products from AWS Service Catalog |http://docs.aws.amazon.com/servicecatalog/latest/userguide/[AWS Service Catalog User Guide]
+|===
+
+== Troubleshooting
+
+*Q.* I encountered a *CREATE_FAILED* error when I launched the Quick Start.
+
+*A.* Refer to the following table for known issues and solutions.
+
+[cols=",,",options="header",]
+|===
+|Error message |Possible cause |What to do
+|The following resource(s) failed to create: [rConfigRuleForRequiredTags, rConfigRuleForUnrestrictedPorts, rConfigRuleForSSH, rConfigRulesLambdaRole] |The *Support Config* parameter was set to *Yes*, but AWS Config isn’t available in the region you selected, or AWS Config has not been initialized. |Set the *Support Config* parameter to *No*, or select another region. Also make sure that AWS Config is set up properly, as described in the link:#deployment-steps[predeployment steps].
+|Maximum VPCs limit reached |You’ve exceeded the number of VPCs allowed in your account. |Delete VPCs and/or request a limit increase. Try to create the stack again. For more information, see link:#resources[technical requirements].
+|Maximum EIPs limit reached |You’ve exceeded the limit of Elastic IP addresses in your account. |Disassociate Elastic IPs or request a Elastic IP limit increase, and try to create the stack again. For more information, see link:#resources[technical requirements].
+|Other limits exceeded |You’ve exceeded the use of resources in your AWS account. |See link:#resources[technical requirements], and https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-[request service limit increase]s as necessary.
+|===
+
+If the problem you encounter isn’t covered in this table, we recommend that you relaunch the template with *Rollback on failure* set to *No* (this setting is under *Advanced* in the AWS CloudFormation console, *Options* page) and open a support case in the https://console.aws.amazon.com/support/[AWS Support Center] for further troubleshooting. When rollback is disabled, the stack’s state will be retained and the instance will be left running, so the support team can help troubleshoot the issue. (For Windows, look at the log files in %ProgramFiles%\Amazon\EC2ConfigService and C:\cfn\log.)
+
+*Important:* When you set *Rollback on failure* to *No*, you continue to incur AWS charges for this stack. Delete the stack when you’ve finished troubleshooting.
+
+For additional information, see Troubleshooting AWS CloudFormation on the AWS website.
+
+*Q.* I encountered a size limitation error when I deployed the AWS CloudFormation templates.
+
+*A.* We recommend that you launch the Quick Start templates from the links in this guide or from another S3 bucket. If you deploy the templates from a local copy on your computer or from a location other than an S3 bucket, you might encounter template size limitations. For more information about AWS CloudFormation quotas, see the AWS documentation.
+
+== 
+
+== Send us feedback
+
+To post feedback, submit feature ideas, or report bugs, use the *Issues* section of the GitHub repository for this Quick Start. If you’d like to submit code, please review the https://aws-quickstart.github.io/[Quick Start Contributor’s Guide].
+
+== Additional resources
+
+*AWS resources*
+
+* https://aws.amazon.com/getting-started/[Getting Started Resource Center]
+* https://docs.aws.amazon.com/general/latest/gr/[AWS General Reference]
+* https://docs.aws.amazon.com/general/latest/gr/glos-chap.html[AWS Glossary]
+
+*AWS services*
+
+* https://docs.aws.amazon.com/cloudformation/[AWS CloudFormation]
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html[Amazon EBS]
+* https://docs.aws.amazon.com/ec2/[Amazon EC2]
+* https://docs.aws.amazon.com/iam/[IAM]
+* https://docs.aws.amazon.com/vpc/[Amazon VPC]
+
+*Other Quick Start reference deployments*
+
+* https://aws.amazon.com/quickstart/[AWS Quick Start home page]
+
+== Document revisions
+
+[cols=",,",options="header",]
+|===
+|Date |Change |In sections
+|July 2020 |Updated to use new services available with AWS |All
+| | |
+|January 2017 |Initial release |—
+|===

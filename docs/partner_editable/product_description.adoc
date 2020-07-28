@@ -1,0 +1,18 @@
+// Replace the content in <>
+// Briefly describe the software. Use consistent and clear branding.
+// Include the benefits of using the software on AWS, and provide details on usage scenarios.
+=== UK-OFFICIAL compliance on AWS
+
+The deployment guide includes links for viewing and launching AWS CloudFormation templates that automate the deployment, a control mapping matrix and additional recommendations and references for extending the approach to incorporate additional requirements.
+
+The purpose of the AWS CloudFormation template is to provide an easily deployable reference architecture for evaluation and testing. Although the template covers many aspects of configuration to support UK-OFFICIAL workloads, it is not intended for production workloads without appropriate review and validation.
+
+Furthermore, organizations will have to consider their own risk, tolerance and internal/external requirements before they can define and implement an AWS multi-account strategy, connectivity with other systems and networks, user authentication workflows, encryption methodologies, logging and auditing requirements and similar components of the architecture. We recommend that you customize the AWS CloudFormation template to meet your own needs in order to obtain a repeatable and auditable reference architecture.
+
+=== How to use this Quick Start
+
+You can build an environment that serves as an example for learning, as a prototyping environment, or as a baseline for customization.
+
+Since AWS provides a mature set of configuration options (and new services are being released all the time), this Quick Start provides security templates that you can use for your own environment. These security templates (in the form of AWS CloudFormation templates) provide a comprehensive rule set that can be systematically enforced. You can use these templates as a starting point and customize them to match your specific use cases.
+
+As mentioned in the Additional considerations for production workloads section, this template is intended to be used for production workloads only with thorough review, validation, and inclusion of your own business and technical requirements.
