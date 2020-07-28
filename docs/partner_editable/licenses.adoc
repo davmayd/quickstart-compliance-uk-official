@@ -1,0 +1,3 @@
+// Include details about the license and how they can sign up. If no license is required, clarify that.
+
+_No specific software licenses are required to use this reference architecture._
