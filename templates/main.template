@@ -1,30 +1,50 @@
 AWSTemplateFormatVersion: "2010-09-09"
-
 Description: "This cloudformation stack uses nested templates to deploy a cloud enviroment that can be used to mimic a customers on prem enviroment.  This can then be used to demonstrate how AWS services can integrate with on premise enviroments such as creating an VPN to connect the two or extending an existing Active Directory into AWS. (qs-1qup6ra6l)"
 Metadata:
   QuickStartDocumentation:
     EntrypointName: "Launch into a new VPC"
   AWS::CloudFormation::Interface:
     ParameterGroups:
-    - Label:
-        default: VPC Configuration
-      Parameters:
-        - InternetVPCCidr
-        - SharedVPCCidr
-        - ProductionVPCCidr
-        - EndpointVPCCidr
-    - Label:
-        default: Deployment Configuration
-      Parameters:
-        - ProjectName
-        - DBPassword
-        - CisAlertingEmail
-    - Label:
-        default: AWS Quick Start Configuration
-      Parameters:
-        - QSS3BucketName
-        - QSS3KeyPrefix
-        - QSS3BucketRegion
+      - Label:
+          default: VPC Configuration
+        Parameters:
+          - InternetVPCCidr
+          - SharedVPCCidr
+          - ProductionVPCCidr
+          - EndpointVPCCidr
+      - Label:
+          default: Deployment Configuration
+        Parameters:
+          - ProjectName
+          - DBPassword
+          - CisAlertingEmail
+      - Label:
+          default: AWS Quick Start Configuration
+        Parameters:
+          - QSS3BucketName
+          - QSS3KeyPrefix
+          - QSS3BucketRegion
+    ParameterLabels:
+      ProjectName:
+        default: Project Name
+      InternetVPCCidr:
+        default: Internet VPC CIDR
+      SharedVPCCidr:
+        default: Shared VPC CIDR
+      ProductionVPCCidr:
+        default: Production VPC CIDR
+      EndpointVPCCidr:
+        default: Endpoint VPC CIDR
+      DBPassword:
+        default: Database password
+      CisAlertingEmail:
+        default: CIS Alerting Email
+      QSS3BucketName:
+        default: Quick Start S3 bucket name
+      QSS3KeyPrefix:
+        default: Quick Start S3 key prefix
+      QSS3BucketRegion:
+        default: Quick Start S3 bucket region
 Parameters:
   ProjectName:
     Description: Name to tag resources with
