@@ -159,15 +159,15 @@ The sample architecture includes the following components and features:
 * Basic AWS Identity and Access Management (IAM) configuration with custom IAM policies, with associated groups, roles, and instance profiles.
 * An external-facing Amazon Virtual Private Cloud (Amazon VPC) for controlled internet access with multi-AZ architecture and separate public and private communication.
 * An internal-facing Amazon VPC for shared services (for example active directory) with multi-AZ architecture and private subnets to support shared services.
-* An Internal-facing Amazon VPC for PrivateLink endpoints to allow direct access to AWS services over the AWS backbone with multi-AZ architecture and private subnets to support shared services.
-* An Internal-facing Amazon VPC for application workloads with multi-AZ architecture and private subnets to support shared services.
+* An internal-facing Amazon VPC for PrivateLink endpoints to allow direct access to AWS services over the AWS backbone with multi-AZ architecture and private subnets to support shared services.
+* An internal-facing Amazon VPC for application workloads with multi-AZ architecture and private subnets to support shared services.
 * AWS Transit Gateway for inter-VPC communication and VPN termination.
 * Standard Amazon VPC security groups for Amazon Elastic Compute Cloud (Amazon EC2) instances, load balancers and endpoints used in the sample application stack.
 * LAMP application using Auto Scaling and Elastic Load Balancing, which can be modified and/or bootstrapped with customer application.
 * AWS Systems Manager, a sessions manager for administrative access to instances.
-* Logging, monitoring, and alerts using AWS CloudTrail, Amazon CloudWatch, and AWS Config rules.
-* Route 53 resolver to manage shared private DNS for shared services and endpoints across VPCs.
-* AWS Certificate manager to store and deploy SSL certificates to endpoints to enable encryption in transit.
+* Logging, monitoring, and alerting using AWS CloudTrail, Amazon CloudWatch, and AWS Config rules.
+* Amazon Route 53 resolver to manage shared private DNS for shared services and endpoints across VPCs.
+* AWS Certificate Manager to store and deploy SSL certificates to endpoints to enable encryption in transit.
 * Capture and analysis of security events and compliance status using AWS GuardDuty.
 * Audit compliance state across AWS with AWS Security Hub.
 

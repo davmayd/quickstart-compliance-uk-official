@@ -7,7 +7,7 @@ The deployment guide includes links for viewing and launching AWS CloudFormation
 
 The purpose of the AWS CloudFormation template is to provide an easily deployable reference architecture for evaluation and testing. Although the template covers many aspects of configuration to support UK-OFFICIAL workloads, it is not intended for production workloads without appropriate review and validation.
 
-Furthermore, organizations will have to consider their own risk, tolerance and internal/external requirements before they can define and implement an AWS multi-account strategy, connectivity with other systems and networks, user authentication workflows, encryption methodologies, logging and auditing requirements and similar components of the architecture. We recommend that you customize the AWS CloudFormation template to meet your own needs in order to obtain a repeatable and auditable reference architecture.
+Furthermore, organizations will have to consider their own risk, tolerance and internal/external requirements before they can define and implement an AWS multi-account strategy, connectivity with other systems and networks, user authentication workflows, encryption methodologies, logging and auditing requirements and similar components of the architecture. We recommend that you customize the AWS CloudFormation templates to meet your own needs in order to obtain a repeatable and auditable reference architecture.
 
 === How to use this Quick Start
 

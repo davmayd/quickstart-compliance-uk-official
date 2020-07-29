@@ -2,15 +2,16 @@
 //Should any sections not be applicable, remove them
 
 == Test the deployment
+
 To test your deployment, choose the link for *LandingPageURL* from the *Outputs* tab for the main stack, as shown in Figure 1. A new page opens in your browser.
 
 This deployment builds a working demo of a multi-AZ WordPress site. To connect to the WordPress site, choose the URL provided for the WordPress application on the landing page. This URL is also available from the *WebsiteURL* link on the *Outputs* tab for the main stack.
 
 *Note:* WordPress is provided for testing and proof-of-concept purposes only; it is not intended for production use. You can replace it with another application of your choice.
 
-Th landing page URL brings up the WordPress welcome page.You can install and test the WordPress deployment from here.
+The landing page URL brings up the WordPress welcome page. You can install and test the WordPress deployment from here.
 
-*Note:* The WordPress application included in this Quick Start deployment is for demo purposes only. Application-level security, including patching, operating system updates, and addressing application vulnerabilities, is the customer’s responsibility (see the https://aws.amazon.com/compliance/shared-responsibility-model/[AWS Shared Responsibility Model]). *For this Quick Start, we recommend that you delete the AWS CloudFormation stacks after your proof-of-concept demo or testing is complete.*
+*Note:* The WordPress application included in this Quick Start deployment is for demo purposes only. Application-level security, including patching, operating system updates, and addressing application vulnerabilities, are the customer’s responsibility (see the https://aws.amazon.com/compliance/shared-responsibility-model/[AWS Shared Responsibility Model]). *For this Quick Start, we recommend that you delete the AWS CloudFormation stacks after your proof-of-concept demo or testing is complete.*
 
 == Deleting the stacks
 
