@@ -5,7 +5,9 @@
 
 The deployment guide includes links for viewing and launching AWS CloudFormation templates that automate the deployment, a https://fwd.aws/6AKEy[control mapping matrix], and recommendations for incorporating additional requirements.
 
+
 The purpose of the AWS CloudFormation template is to provide an easily deployable reference architecture for evaluation and testing. Although the template covers many configuration aspects to support UK-OFFICIAL workloads, it is not intended for production workloads without appropriate review and validation.
+
 
 Furthermore, organizations must consider their own risks, tolerances, and internal/external requirements before defining and implementing an AWS multiaccount strategy. This includes connectivity with other systems and networks, user authentication workflows, encryption methodologies, logging and auditing requirements, and similar architecture components. We recommend that you customize the AWS CloudFormation templates to meet your needs in order to obtain a repeatable and auditable reference architecture.
 
@@ -13,7 +15,7 @@ Furthermore, organizations must consider their own risks, tolerances, and intern
 
 AWS customers who require connectivity with special-purpose networks must implement enhanced network segmentation and isolation. Some organizations that may consider doing this include Public Services Network (PSN) for public sector organizations, N3 for English National Health Service (NHS), and Janet for education and research. Such networks are restricted to organizations that have implemented the required set of technical and legal controls as required by their network operators.
 
-AWS has worked with private-network providers within the UK government to develop a set of best practices that integrate the included architecture pattern for public-sector organizations to connect to these networks. For more information, see //TODO Insert text with embedded link.
+AWS has worked with private-network providers within the UK government to develop a set of best practices that integrate the included architecture pattern for public-sector organizations to connect to these networks. Contact AWS for guidance.
 
 === How to use this Quick Start
 
@@ -21,5 +23,4 @@ You can build an environment that serves as an example for learning, as a protot
 
 Because AWS provides a mature set of configuration options (with new services released regularly), this Quick Start provides security templates that you can use for your own environment. The security templates (in the form of AWS CloudFormation templates) provide a comprehensive rule set that can be systematically enforced. You can use these templates as a starting point and customize them to match specific use cases.
 
-As mentioned in the Additional considerations //TODO where is the "Additional considerations" section? 
-for production workloads section, this template is intended only for production workloads after thorough review, validation, and inclusion of your own business and technical requirements.
+These templates are intended only for production workloads after thorough review, validation, and inclusion of your own business and technical requirements.

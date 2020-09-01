@@ -25,22 +25,7 @@ IMPORTANT: This Quick Start deployment uses nested AWS CloudFormation templates,
 
 You can add the AWS CloudFormation templates for this Quick Start to AWS Service Catalog as portfolios or products to manage them from a central location. This helps support consistent governance, security, and compliance requirements. Users can deploy only the approved IT services they need.
 
-For more information, see the http://aws.amazon.com/documentation/servicecatalog/[AWS Service Catalog]. The following table provides links for specific tasks.
-
-[cols=",",options="header",]
-|===
-|To |See
-|Create a new portfolio |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-create.html[Creating and Deleting Portfolios]
-|Create a new product |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-products.html[Adding and Removing Products]
-|Give users access |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/catalogs_portfolios_users.html[Granting Access to Users]
-|Assign IAM roles for deploying stacks a|
-http://docs.aws.amazon.com/servicecatalog/latest/adminguide/constraints-launch.html[Applying Launch Constraints]
-
-Ensure that the IAM role defines the policy and trust relationship.
-
-|Assign tags to portfolios to track resource ownership, access, and cost allocations |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/portfoliomgmt-tags.html[Tagging Portfolios]
-|Perform other administrative tasks |http://docs.aws.amazon.com/servicecatalog/latest/adminguide/[AWS Service Catalog Administrator Guide]
-|Launch products from the AWS Service Catalog |http://docs.aws.amazon.com/servicecatalog/latest/userguide/[AWS Service Catalog User Guide]
+For more information, see the http://aws.amazon.com/documentation/servicecatalog/[AWS Service Catalog].
 
 == Additional resources
 

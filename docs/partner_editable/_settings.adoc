@@ -1,10 +1,10 @@
 :quickstart-project-name: quickstart-compliance-uk-official
 :partner-product-name: Standardized Architecture for UK-OFFICIAL
-:partner-company-name: AWS WWPS team //TODO WWPS should be spelled out on first mention
+:partner-company-name: AWS Word Wide Professional Services team
 :doc-month: August
 :doc-year: 2020
-:partner-contributors: Charlie Llewellyn, Chris King, and Matt Johnson //TODO Their names should be followed with their affiliation
-:quickstart-contributors: Andrew Glenn //TODO Your name should be followed with ", AWS Quick Start team"
+:partner-contributors: Charlie Llewellyn, Chris King, and Matt Johnson, AWS Word Wide Professional Services team
+:quickstart-contributors: Andrew Glenn, AWS Quick Start team
 :deployment_time: 30–60 minutes
 :default_deployment_region: us-east-1
 // Uncomment these two attributes if you are leveraging
