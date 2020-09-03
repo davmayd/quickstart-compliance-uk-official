@@ -38,7 +38,7 @@ For more information, see the http://aws.amazon.com/documentation/servicecatalog
 *AWS services*
 
 * https://docs.aws.amazon.com/cloudformation/[AWS CloudFormation^]
-* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html[Amazon EBS^]
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html[Amazon Elastic Block Store^]
 * https://docs.aws.amazon.com/ec2/[Amazon EC2^]
 * https://docs.aws.amazon.com/iam/[IAM^]
 * https://docs.aws.amazon.com/vpc/[Amazon VPC^]
