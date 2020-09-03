@@ -11,5 +11,5 @@
 |Application Load Balancers |1
 |Network Load Balancers |2
 |t3.micro EC2 instances |7
-|db.t3.micro RDS instances |2
+|db.t3.micro Amazon Relational Database Service (Amazon RDS) instances |2
 |===
