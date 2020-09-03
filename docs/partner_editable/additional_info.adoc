@@ -3,7 +3,7 @@
 
 == Test the deployment
 
-To test your deployment, choose the link for *LandingPageURL* from the *Outputs* tab for the main stack, as shown in Figure 1.
+To test your deployment, choose the link for *LandingPageURL* from the *Outputs* tab for the main stack, as shown in <<cfn_outputs>>.
 
 This deployment builds a working demonstration of a Multi-AZ WordPress site. To connect to the WordPress site, choose the URL provided for the WordPress application on the landing page. The URL is also available from the *WebsiteURL* link on the *Outputs* tab for the main stack.
 
