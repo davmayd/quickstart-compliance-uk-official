@@ -11,7 +11,7 @@ NOTE: WordPress is provided for testing and proof-of-concept purposes only; it i
 
 The landing page URL brings up the WordPress welcome page. You can install and test the WordPress deployment from here.
 
-NOTE: The WordPress application included in this Quick Start is for demonstration purposes only. Application-level security, including patching, operating-system updates, and addressing application vulnerabilities, are the customer’s responsibility (see the https://aws.amazon.com/compliance/shared-responsibility-model/[AWS Shared Responsibility Model]).
+NOTE: The WordPress application included in this Quick Start is for demonstration purposes only. Application-level security, including patching, operating-system updates, and addressing application vulnerabilities, are the customer’s responsibility (see the https://aws.amazon.com/compliance/shared-responsibility-model/[AWS Shared Responsibility Model^]).
 
 IMPORTANT: For this Quick Start, we recommend that you delete the AWS CloudFormation stacks after your proof-of-concept demonstration or testing is complete.
 
@@ -25,20 +25,20 @@ IMPORTANT: This Quick Start deployment uses nested AWS CloudFormation templates,
 
 You can add the AWS CloudFormation templates for this Quick Start to AWS Service Catalog as portfolios or products to manage them from a central location. This helps support consistent governance, security, and compliance requirements. Users can deploy only the approved IT services they need.
 
-For more information, see the http://aws.amazon.com/documentation/servicecatalog/[AWS Service Catalog].
+For more information, see the http://aws.amazon.com/documentation/servicecatalog/[AWS Service Catalog^].
 
 == Additional resources
 
 *AWS resources*
 
-* https://aws.amazon.com/getting-started/[Getting Started Resource Center]
-* https://docs.aws.amazon.com/general/latest/gr/[AWS General Reference]
-* https://docs.aws.amazon.com/general/latest/gr/glos-chap.html[AWS Glossary]
+* https://aws.amazon.com/getting-started/[Getting Started Resource Center^]
+* https://docs.aws.amazon.com/general/latest/gr/[AWS General Reference^]
+* https://docs.aws.amazon.com/general/latest/gr/glos-chap.html[AWS Glossary^]
 
 *AWS services*
 
-* https://docs.aws.amazon.com/cloudformation/[AWS CloudFormation]
-* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html[Amazon EBS]
-* https://docs.aws.amazon.com/ec2/[Amazon EC2]
-* https://docs.aws.amazon.com/iam/[IAM]
-* https://docs.aws.amazon.com/vpc/[Amazon VPC]
+* https://docs.aws.amazon.com/cloudformation/[AWS CloudFormation^]
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html[Amazon EBS^]
+* https://docs.aws.amazon.com/ec2/[Amazon EC2^]
+* https://docs.aws.amazon.com/iam/[IAM^]
+* https://docs.aws.amazon.com/vpc/[Amazon VPC^]

@@ -3,7 +3,7 @@
 // Include the benefits of using the software on AWS, and provide details on usage scenarios.
 === UK-OFFICIAL compliance on AWS
 
-The deployment guide includes links for viewing and launching AWS CloudFormation templates that automate the deployment, a https://fwd.aws/6AKEy[control-mapping matrix], and recommendations for incorporating additional requirements.
+The deployment guide includes links for viewing and launching AWS CloudFormation templates that automate the deployment, a https://fwd.aws/6AKEy[control-mapping matrix^], and recommendations for incorporating additional requirements.
 
 
 The purpose of the AWS CloudFormation template is to provide a deployable reference architecture for evaluation and testing. Although the template covers many configuration aspects to support UK-OFFICIAL workloads, it is not intended for production workloads without appropriate review and validation.
