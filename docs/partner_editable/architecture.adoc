@@ -1,7 +1,7 @@
-Deploying this Quick Start builds a multi-VPC network topology, a sample LAMP (Linux Apache MySQL PHP) application, and a scalable containerized outbound proxy in the AWS Cloud, as shown in figures 1, 2, and 3.
+Deploying this Quick Start builds a multi–Amazon Virtual Private Cloud (Amazon VPC) network topology, a sample LAMP (Linux Apache MySQL PHP) application, and a scalable containerized outbound proxy in the AWS Cloud, as shown in figures 1, 2, and 3.
 
 [#architecture1]
-.Amazon Virtual Private Cloud (Amazon VPC) design depicting the integration of a production VPC that hosts application services, an internet VPC that provides both inbound and outbound connectivity, a shared-services VPC that supports common tools (for example, Active Directory), and an endpoint VPC that provides consolidated access to AWS services and outbound access to the internet. The internet VPC can be replaced or enhanced to feature connectivity to a private government network.
+.Amazon VPC design depicting the integration of a production VPC that hosts application services, an internet VPC that provides both inbound and outbound connectivity, a shared-services VPC that supports common tools (for example, Active Directory), and an endpoint VPC that provides consolidated access to AWS services and outbound access to the internet. The internet VPC can be replaced or enhanced to feature connectivity to a private government network.
 [link=images/image2.png]
 image::../images/image2.png[Architecture,width=717,height=440]
 
