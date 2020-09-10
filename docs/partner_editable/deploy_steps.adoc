@@ -1,8 +1,8 @@
 // We need to work around Step numbers here if we are going to potentially exclude the AMI subscription
 === Sign in to your AWS account
 
-. Sign in to your AWS account at https://aws.amazon.com with an IAM user or role that has the necessary permissions. For details, see the link:#_planning_the_deployment[Planning the deployment^] section.
-. Ensure that your AWS account is configured correctly, as discussed in the link:#_technical_requirements[Technical requirements^] section.
+. Sign in to your AWS account at https://aws.amazon.com with an IAM user or role that has the necessary permissions. For details, see the link:#_planning_the_deployment[Planning the deployment] section.
+. Ensure that your AWS account is configured correctly, as discussed in the link:#_technical_requirements[Technical requirements] section.
 
 // Optional based on Marketplace listing. Not to be edited
 ifdef::marketplace_subscription[]
@@ -26,7 +26,7 @@ endif::marketplace_subscription[]
 
 NOTE: You are responsible for the cost of the AWS services used while running this Quick Start reference deployment. There is no additional cost for using this Quick Start. For full details, see the pricing pages for each AWS service used by this Quick Start. Prices are subject to change.
 
-. Sign in to your AWS account, and choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see the link:#_deployment_options[Deployment options^] section.
+. Choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see the link:#_deployment_options[Deployment options] section. //TODO There appears to be only one option available? For one option, just write "Launch the AWS CloudFormation template."
 
 [cols=",]
 |===
@@ -35,7 +35,7 @@ NOTE: You are responsible for the cost of the AWS services used while running th
 
 WARNING: If you deploy {partner-product-name} into an existing VPC, ensure that your VPC has two private subnets in different Availability Zones for the workload instances and that the subnets aren’t shared. This Quick Start doesn’t support https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html[shared subnets^]. To download packages and software without exposing them to the internet, these subnets require https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html[NAT gateways^] in their route tables.
 
-Also, ensure that the domain name in the DHCP options is configured. For more information, see http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html[DHCP options sets^]. Provide your VPC settings when you launch the Quick Start.
+Ensure that you configure the domain name in the Dynamic Host Configuration Protocol (DHCP) options. For more information, see http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html[DHCP options sets^]. Provide your VPC settings when you launch the Quick Start.
 
 Each deployment takes about {deployment_time} to complete.
 
@@ -46,7 +46,7 @@ Each deployment takes about {deployment_time} to complete.
 
 [start=3]
 . On the *Create stack* page, keep the default setting for the template URL, and then choose *Next*.
-. On the *Specify stack details* page, change the stack name if needed. Review the parameters for the template. Provide values for the parameters that require input. For all other parameters, review the default settings, and customize them as necessary.
+. On the *Specify stack details* page, change the stack name if needed. Review the template's parameters, and provide values for any parameters that require input. For all other parameters, review the default settings, and customize them as necessary.
 
 // In the following tables, parameters are listed by category and described separately for the two deployment options:
 
