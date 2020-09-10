@@ -17,13 +17,13 @@ IMPORTANT: For this Quick Start, we recommend that you delete the AWS CloudForma
 
 == Deleting the stacks
 
-When you finish using the baseline environment, you can delete the stacks. Deleting a stack by using a CLI, API, or the AWS CloudFormation console, removes all of the created resources for that stack. The only exceptions are the S3 buckets for logging and backup. By default, the deletion policy for those buckets is set to *Retain*, so you must delete them manually.
+When you finish using the baseline environment, you can delete the stacks. Deleting a stack by using a command line interface (CLI), application programming interface (API), or the AWS CloudFormation console removes all of the created resources for that stack. The only exceptions are the S3 buckets for logging and backup. By default, the deletion policy for those buckets is set to *Retain*, so you must delete them manually.
 
 IMPORTANT: This Quick Start deployment uses nested AWS CloudFormation templates, so deleting the main stack removes nested stacks and all associated resources.
 
 == Integrating with AWS Service Catalog
 
-You can add the AWS CloudFormation templates for this Quick Start to AWS Service Catalog as portfolios or products to manage them from a central location. This helps support consistent governance, security, and compliance requirements. Users can deploy only the approved IT services they need.
+To manage your AWS CloudFormation templates from a central location, add your templates for this Quick Start to the AWS Service Catalog as a portfolio or product. This helps to support consistent governance, security, and compliance requirements. Users can deploy only the approved IT services they need.
 
 For more information, see the http://aws.amazon.com/documentation/servicecatalog/[AWS Service Catalog^].
 

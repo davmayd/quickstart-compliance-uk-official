@@ -6,27 +6,27 @@ Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
-          default: VPC Configuration
+          default: VPC configuration
         Parameters:
           - InternetVPCCidr
           - SharedVPCCidr
           - ProductionVPCCidr
           - EndpointVPCCidr
       - Label:
-          default: Deployment Configuration
+          default: Deployment configuration
         Parameters:
           - ProjectName
           - DBPassword
           - CisAlertingEmail
       - Label:
-          default: AWS Quick Start Configuration
+          default: AWS Quick Start configuration
         Parameters:
           - QSS3BucketName
           - QSS3KeyPrefix
           - QSS3BucketRegion
     ParameterLabels:
       ProjectName:
-        default: Project Name
+        default: Project name
       InternetVPCCidr:
         default: Internet VPC CIDR
       SharedVPCCidr:
@@ -38,36 +38,36 @@ Metadata:
       DBPassword:
         default: Database password
       CisAlertingEmail:
-        default: CIS Alerting Email
+        default: CIS alert email
       QSS3BucketName:
         default: Quick Start S3 bucket name
       QSS3KeyPrefix:
         default: Quick Start S3 key prefix
       QSS3BucketRegion:
-        default: Quick Start S3 bucket region
+        default: Quick Start S3 bucket Region
 Parameters:
   ProjectName:
-    Description: Name to tag resources with
+    Description: Tag for resources.
     Type: String
     Default: official-quickstart
   InternetVPCCidr:
-    Description: CIDR for Internet VPC supernet
+    Description: CIDR for Internet VPC supernet.
     Type: String
     Default: 10.0.0.0/16
   SharedVPCCidr:
-    Description: CIDR for Shared VPC supernet
+    Description: CIDR for Shared VPC supernet.
     Type: String
     Default: 10.10.0.0/16
   ProductionVPCCidr:
-    Description: CIDR for Production VPC supernet
+    Description: CIDR for Production VPC supernet.
     Type: String
     Default: 172.16.0.0/16
   EndpointVPCCidr:
-    Description: CIDR for Endpoint VPC supernet
+    Description: CIDR for Endpoint VPC supernet.
     Type: String
     Default: 192.168.0.0/16
   DBPassword:
-    Description: Password to set for database server
+    Description: Password for database server.
     NoEcho: true
     MinLength: 8
     Type: String
@@ -75,7 +75,7 @@ Parameters:
     Default: 'eu-west-2'
     Description: 'The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.'
     Type: String
-  QSS3BucketName:
+  QSS3BucketName: //TODO Description is missing for QSS3BucketName.
     Type: String
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-.]*[0-9a-zA-Z])*$
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase
@@ -92,7 +92,7 @@ Parameters:
       forward slash (/).
     Default: quickstart-compliance-uk-official/
   CisAlertingEmail:
-    Description: 'Email Address to send Alert notifications for CIS breaches'
+    Description: 'Email address to send alerts for CIS breaches.'
     Type: String
     AllowedPattern: '^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'
 
