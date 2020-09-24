@@ -1,6 +1,6 @@
 :quickstart-project-name: quickstart-compliance-uk-official
 :partner-product-name: Standardized Architecture for UK-OFFICIAL
-:partner-company-name: AWS World Wide Professional Services team
+:partner-company-name: AWS World Wide Professional Services
 :doc-month: September
 :doc-year: 2020
 :partner-contributors: Charlie Llewellyn, Chris King, and Matt Johnson, AWS Professional Services team

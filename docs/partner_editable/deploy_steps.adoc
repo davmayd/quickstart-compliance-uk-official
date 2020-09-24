@@ -26,11 +26,12 @@ endif::marketplace_subscription[]
 
 NOTE: You are responsible for the cost of the AWS services used while running this Quick Start reference deployment. There is no additional cost for using this Quick Start. For full details, see the pricing pages for each AWS service used by this Quick Start. Prices are subject to change.
 
-. Choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see the link:#_deployment_options[Deployment options] section. //TODO There appears to be only one option available? For one option, just write "Launch the AWS CloudFormation template."
+. Choose one of the following options to launch the AWS CloudFormation template. For help with choosing an option, see the link:#_deployment_options[Deployment options] section.
 
 [cols=",]
 |===
 |https://fwd.aws/8qz8m[Deploy {partner-product-name} into a new VPC on AWS^] 
+//TODO Add option for an existing VPC.
 |===
 
 WARNING: If you deploy {partner-product-name} into an existing VPC, ensure that your VPC has two private subnets in different Availability Zones for the workload instances and that the subnets aren’t shared. This Quick Start doesn’t support https://docs.aws.amazon.com/vpc/latest/userguide/vpc-sharing.html[shared subnets^]. To download packages and software without exposing them to the internet, these subnets require https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html[NAT gateways^] in their route tables.

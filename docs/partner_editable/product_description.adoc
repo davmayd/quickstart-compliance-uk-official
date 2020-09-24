@@ -15,7 +15,7 @@ Furthermore, organizations must consider their own risks, tolerances, and intern
 
 AWS customers who require connectivity with special-purpose networks must implement enhanced network segmentation and isolation. Some organizations that may consider doing this include Public Services Network (PSN) for public-sector organizations, N3 for English National Health Service (NHS), and Janet for education and research. Such networks are restricted to organizations that have implemented the required set of technical and legal controls as required by their network operators.
 
-AWS has worked with private-network providers within the UK government to develop a set of best practices that integrate the included architecture pattern for public-sector organizations to connect to these networks. Contact AWS for guidance.
+AWS has worked with private-network providers within the UK government to develop a set of best practices that integrate the included architecture pattern for public-sector organizations to connect to these networks.
 
 === How to use this Quick Start
 
