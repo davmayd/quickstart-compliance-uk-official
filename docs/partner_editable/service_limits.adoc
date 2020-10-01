@@ -1,0 +1,15 @@
+// Replace the <n> in each row to specify the number of resources used in this deployment. Remove the rows for resources that aren’t used.
+|===
+|Resource |This deployment uses
+
+// Space needed to maintain table headers
+|VPCs |4
+|Elastic IP addresses |1
+|AWS Identity and Access Management (IAM) security groups |10
+|IAM roles |14
+|Auto Scaling groups |1
+|Application Load Balancers |1
+|Network Load Balancers |2
+|t3.micro EC2 instances |7
+|db.t3.micro Amazon Relational Database Service (Amazon RDS) instances |2
+|===

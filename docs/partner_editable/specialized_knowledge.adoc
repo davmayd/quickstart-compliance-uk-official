@@ -1,0 +1,11 @@
+
+This Quick Start requires a moderate- to high-level understanding of the process to achieve and manage control requirements and compliance processes associated with UK-OFFICIAL workloads within a traditional hosting environment.
+
+This deployment is intended for information technology (IT) assessors and security personnel. It assumes familiarity with basic security concepts in the areas of networking, operating systems, data encryption, operational controls, and cloud computing.
+
+Additionally, this deployment requires a moderate level of understanding of AWS services, which include the following:
+
+* Access to a current AWS account with IAM administrator-level permissions.
+* A basic understanding of AWS services, service quotas, and AWS CloudFormation.
+* Knowledge of architecting applications on AWS.
+* An understanding of security and compliance requirements within the customer's organization.

@@ -3,16 +3,14 @@ project:
   owner: quickstart-eng@amazon.com
   package_lambda: false
   regions:
-  - eu-west-2
-  s3_bucket: ''
+    - eu-west-2
 tests:
-  ec2-li-2016:
+  compl-uk-official:
     parameters:
-      DBPassword: $[taskcat_genpass_28]
-      CisAlertingEmail: distlist@example.org
       QSS3BucketName: $[taskcat_autobucket]
       QSS3BucketRegion: $[taskcat_current_region]
+      CisAlertingEmail: foo@example.com
+      DBPassword: $[taskcat_genpass_28]
     regions:
-    - eu-west-2
-    s3_bucket: ''
-    template: templates/master_template.yaml
+      - eu-west-2
+    template: templates/main.template

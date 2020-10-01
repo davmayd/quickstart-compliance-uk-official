@@ -1,30 +1,73 @@
 AWSTemplateFormatVersion: "2010-09-09"
-
 Description: "This cloudformation stack uses nested templates to deploy a cloud enviroment that can be used to mimic a customers on prem enviroment.  This can then be used to demonstrate how AWS services can integrate with on premise enviroments such as creating an VPN to connect the two or extending an existing Active Directory into AWS. (qs-1qup6ra6l)"
-
+Metadata:
+  QuickStartDocumentation:
+    EntrypointName: "Launch into a new VPC"
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: VPC configuration
+        Parameters:
+          - InternetVPCCidr
+          - SharedVPCCidr
+          - ProductionVPCCidr
+          - EndpointVPCCidr
+      - Label:
+          default: Deployment configuration
+        Parameters:
+          - ProjectName
+          - DBPassword
+          - CisAlertingEmail
+      - Label:
+          default: AWS Quick Start configuration
+        Parameters:
+          - QSS3BucketName
+          - QSS3KeyPrefix
+          - QSS3BucketRegion
+    ParameterLabels:
+      ProjectName:
+        default: Project name
+      InternetVPCCidr:
+        default: Internet VPC CIDR
+      SharedVPCCidr:
+        default: Shared VPC CIDR
+      ProductionVPCCidr:
+        default: Production VPC CIDR
+      EndpointVPCCidr:
+        default: Endpoint VPC CIDR
+      DBPassword:
+        default: Database password
+      CisAlertingEmail:
+        default: CIS alert email
+      QSS3BucketName:
+        default: Quick Start S3 bucket name
+      QSS3KeyPrefix:
+        default: Quick Start S3 key prefix
+      QSS3BucketRegion:
+        default: Quick Start S3 bucket Region
 Parameters:
-  ProjectName: 
-    Description: Name to tag resources with
+  ProjectName:
+    Description: Tag for resources.
     Type: String
     Default: official-quickstart
   InternetVPCCidr:
-    Description: CIDR for Internet VPC supernet
+    Description: CIDR for Internet VPC supernet.
     Type: String
     Default: 10.0.0.0/16
   SharedVPCCidr:
-    Description: CIDR for Shared VPC supernet
+    Description: CIDR for Shared VPC supernet.
     Type: String
     Default: 10.10.0.0/16
   ProductionVPCCidr:
-    Description: CIDR for Production VPC supernet
+    Description: CIDR for Production VPC supernet.
     Type: String
     Default: 172.16.0.0/16
   EndpointVPCCidr:
-    Description: CIDR for Endpoint VPC supernet
+    Description: CIDR for Endpoint VPC supernet.
     Type: String
     Default: 192.168.0.0/16
   DBPassword:
-    Description: Password to set for database server
+    Description: Password for database server.
     NoEcho: true
     MinLength: 8
     Type: String
@@ -39,6 +82,9 @@ Parameters:
       letters, uppercase letters, periods (.), and hyphens (-). It cannot start or
       end with a hyphen (-).
     Default: aws-quickstart
+    Description: S3 bucket name for the Quick Start assets. Quick Start bucket name can
+      include numbers, lowercase letters, uppercase letters, and hyphens (-). It
+      cannot start or end with a hyphen (-).
   QSS3KeyPrefix:
     Type: String
     AllowedPattern: ^[0-9a-zA-Z-/]*$
@@ -49,15 +95,15 @@ Parameters:
       forward slash (/).
     Default: quickstart-compliance-uk-official/
   CisAlertingEmail:
-    Description: 'Email Address to send Alert notifications for CIS breaches'
+    Description: 'Email address to send alerts for CIS breaches.'
     Type: String
     AllowedPattern: '^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$'
 
 Conditions:
   UsingDefaultBucket: !Equals [!Ref QSS3BucketName, 'aws-quickstart']
-      
-Mappings: 
-  RegionMap: 
+
+Mappings:
+  RegionMap:
     eu-north-1:
       "HVM64": "ami-0f630db6194a81ad0"
     ap-south-1:
@@ -256,10 +302,10 @@ Resources:
         EndpointVPCId: !GetAtt EndpointVPC.Outputs.VPCId
 
 
-  outboundProxy:                                                                                                     
-    Type: AWS::CloudFormation::Stack                                                                             
-    Properties:                                                                                                  
-      TemplateURL: !Sub                                                                                                     
+  outboundProxy:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Sub
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/outboundProxy/outboundProxy.yaml
         - S3Bucket: !If
             - UsingDefaultBucket
@@ -269,9 +315,9 @@ Resources:
             - UsingDefaultBucket
             - !Ref 'AWS::Region'
             - !Ref 'QSS3BucketRegion'
-      Tags:                                                                                                      
-        - Key: ProjectName                                                                                       
-          Value: !Ref ProjectName                                                                                
+      Tags:
+        - Key: ProjectName
+          Value: !Ref ProjectName
       Parameters:
         InternetPrivateSubnetIdA: !GetAtt InternetVPC.Outputs.PrivateSubnetAId
         InternetPrivateSubnetIdB: !GetAtt InternetVPC.Outputs.PrivateSubnetBId

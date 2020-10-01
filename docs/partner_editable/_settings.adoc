@@ -1,0 +1,14 @@
+:quickstart-project-name: quickstart-compliance-uk-official
+:partner-product-name: Standardized Architecture for UK-OFFICIAL
+:partner-company-name: AWS World Wide Professional Services
+:doc-month: September
+:doc-year: 2020
+:partner-contributors: Charlie Llewellyn, Chris King, and Matt Johnson, AWS Professional Services team
+:quickstart-contributors: Andrew Glenn, AWS Quick Start team
+:deployment_time: 30–60 minutes
+:default_deployment_region: us-east-1
+// Uncomment these two attributes if you are leveraging
+// - an AWS Marketplace listing.
+// Additional content will be auto-generated based on these attributes.
+// :marketplace_subscription:
+// :marketplace_listing_url: https://example.com/

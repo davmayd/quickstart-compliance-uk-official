@@ -1,0 +1,3 @@
+This Quick Start reference deployment guide discusses architectural considerations and steps for deploying security-focused baseline environments on the AWS Cloud. Specifically, this Quick Start deploys a standardized environment that helps organizations adhere to guidelines set out by the UK National Cyber Security Centre (NCSC) for the Cloud Security Principles implementation.
+
+This Quick Start is for UK public sector customers who want to experiment with deploying services in AWS that can support data classified as OFFICIAL.

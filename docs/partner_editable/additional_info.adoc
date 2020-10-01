@@ -1,0 +1,42 @@
+// Add steps as necessary for accessing the software, post-configuration, and testing. Don’t include full usage instructions for your software, but add links to your product documentation for that information.
+//Should any sections not be applicable, remove them
+
+== Test the deployment
+
+To test your deployment, choose the link for *LandingPageURL* from the *Outputs* tab for the main stack, as shown in figure 4.
+
+This deployment builds a working demonstration of a Multi-AZ WordPress site. To connect to the WordPress site, choose the URL provided for the WordPress application on the landing page. The URL is also available from the *WebsiteURL* link on the *Outputs* tab for the main stack.
+
+NOTE: WordPress is provided for testing and proof-of-concept purposes only; it is not intended for production use. You can replace it with another application of your choice. Application-level security, including patching, operating-system updates, and addressing application vulnerabilities, are the customer’s responsibility. For more information, see the https://aws.amazon.com/compliance/shared-responsibility-model/[AWS Shared Responsibility Model^].
+
+The landing page URL brings up the WordPress welcome page. You can install and test the WordPress deployment from here.
+
+IMPORTANT: For this Quick Start, we recommend that you delete the AWS CloudFormation stacks after your proof-of-concept demonstration or testing is complete.
+
+== Deleting the stacks
+
+When you finish using the baseline environment, you can delete the stacks. Deleting a stack by using a command line interface (CLI), application programming interface (API), or the AWS CloudFormation console removes all of the created resources for the stack. The only exceptions are the S3 buckets for logging and backup. By default, the deletion policy for those buckets is set to *Retain*, so you must delete them manually.
+
+IMPORTANT: This Quick Start deployment uses nested AWS CloudFormation templates, so deleting the main stack removes nested stacks and all associated resources.
+
+== Integrating with AWS Service Catalog
+
+To manage your AWS CloudFormation templates from a central location, add your templates for this Quick Start to the AWS Service Catalog as a portfolio or product. This helps to support consistent governance, security, and compliance requirements. Users can deploy only the approved IT services they need.
+
+For more information, see the http://aws.amazon.com/documentation/servicecatalog/[AWS Service Catalog Documentation^].
+
+== Additional resources
+
+*AWS resources*
+
+* https://aws.amazon.com/getting-started/[Getting Started with AWS^]
+* https://docs.aws.amazon.com/general/latest/gr/[AWS General Reference^]
+* https://docs.aws.amazon.com/general/latest/gr/glos-chap.html[AWS Glossary^]
+
+*AWS services*
+
+* https://docs.aws.amazon.com/cloudformation/[AWS CloudFormation^]
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html[Amazon Elastic Block Store (Amazon EBS)^]
+* https://docs.aws.amazon.com/ec2/[Amazon EC2^]
+* https://docs.aws.amazon.com/iam/[IAM^]
+* https://docs.aws.amazon.com/vpc/[Amazon VPC^]
