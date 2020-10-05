@@ -2,8 +2,8 @@ Deploying this Quick Start builds a multi–Amazon Virtual Private Cloud (Amazon
 
 [#architecture1]
 .Amazon VPC design depicting the integration of a production VPC that hosts application services, an internet VPC that provides both inbound and outbound connectivity, a shared-services VPC that supports common tools (for example, Active Directory), and an endpoint VPC that provides consolidated access to AWS services and outbound access to the internet. The internet VPC can be replaced or enhanced to feature connectivity to a private government network.
-[link=images/image2.png]
-image::../images/image2.png[Architecture,width=717,height=440]
+[link=images/architecture_diagram.png]
+image::../images/architecture_diagram.png[Architecture,width=717,height=440]
 
 [#architecture2]
 .Production VPC depicting an integration with an internet VPC for inbound communication to the sample application via AWS PrivateLink
