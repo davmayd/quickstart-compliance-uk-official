@@ -17,17 +17,20 @@ image::../images/image6.png[Architecture3,width=762,height=505]
 
 The sample architecture includes the following components and features:
 
+* Four Amazon virtual private clouds (VPCs), each with a mutiple Availability Zones (Multi-AZ) architecture:
+    ** A production VPC for application workloads with private subnets to support shared services.
+    ** A shared-services VPC with private subnets to support shared services (e.g., Active Directory).
+    ** An internet VPC for controlled internet access with separate public and private communication channels.
+    ** An endpoint VPC with private subnets to allow direct access to AWS services.
+* AWS Transit Gateway for inter-VPC communication and virtual private network (VPN) termination.
+* A peering connection for inter-VPC traffic between the internet VPC and endpoint VPC.
+* Outbound proxies to handle external requests for logging and compliance.
+* Standard Amazon VPC security groups (not shown) for Amazon Elastic Compute Cloud (Amazon EC2) instances, load balancers, and endpoints.
+* (Not shown) A LAMP (Linux Apache MySQL PHP) application using Auto Scaling and Elastic Load Balancing, which can be modified or bootstrapped using customer applications.
+* Amazon GuardDuty for capture and analysis of security events and compliance.
+* Logging, monitoring, and alerting using AWS Config rules, Amazon CloudWatch, and AWS CloudTrail.
 * A basic AWS Identity and Access Management (IAM) configuration with custom IAM policies, associated groups, roles, and instance profiles.
-* An external-facing Amazon VPC for controlled internet access with Multi-AZ architecture and separate public and private communication.
-* An internal-facing Amazon VPC for shared services (for example, Active Directory) with a Multi-AZ architecture and private subnets to support shared services.
-* An internal-facing Amazon VPC for AWS PrivateLink endpoints to allow direct access to AWS services over the AWS backbone with Multi-AZ architecture and private subnets to support shared services.
-* An internal-facing Amazon VPC for application workloads with Multi-AZ architecture and private subnets to support shared services.
-* AWS Transit Gateway for inter-VPC communication and VPN termination.
-* Standard Amazon VPC security groups for Amazon Elastic Compute Cloud (Amazon EC2) instances, load balancers, and endpoints.
-* A LAMP application using Auto Scaling and Elastic Load Balancing, which can be modified and/or bootstrapped with customer applications.
-* AWS Systems Manager, a sessions manager for administrative access to instances.
-* Logging, monitoring, and alerting using AWS CloudTrail, Amazon CloudWatch, and AWS Config rules.
+* AWS Security Hub for audit compliance.
 * Amazon Route 53, a resolver to manage the shared private Domain Name System (DNS) for shared services and endpoints across VPCs.
+* AWS Systems Manager, a sessions manager for administrative access to production-VPC instances.
 * AWS Certificate Manager (ACM) to store and deploy Secure Sockets Layer (SSL) certificates to endpoints (to enable encryption in transit).
-* Capture and analysis of security events and compliance status using AWS GuardDuty.
-* Audit compliance across AWS using AWS Security Hub.
