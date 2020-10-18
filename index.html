@@ -837,7 +837,7 @@ p.footer-text a{color:#d7d8d8}
 </div>
 </div>
 <div class="paragraph text-center">
-<p><strong>September, 2020</strong><br>
+<p><strong>September 2020</strong><br>
 <em>Charlie Llewellyn, Chris King, and Matt Johnson, AWS Professional Services team</em><br>
 <em>Andrew Glenn, AWS Quick Start team</em></p>
 </div>
@@ -931,7 +931,7 @@ this Quick Start. There is no additional cost for
 using the Quick Start.</p>
 </div>
 <div class="paragraph">
-<p>The AWS CloudFormation template for this Quick Start includes
+<p>The AWS CloudFormation templates for Quick Starts include
 configuration parameters that you can customize. Some of the settings,
 such as the instance type, affect the cost of deployment. For cost estimates,
 see the pricing pages for each AWS service you use. Prices are subject to change.</p>
@@ -943,7 +943,7 @@ see the pricing pages for each AWS service you use. Prices are subject to change
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">AWS Cost and Usage Report</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. It provides cost estimates based on usage throughout each month and aggregates the data at the end of the month. For more information about the report, see the <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">AWS documentation</a>.
+After you deploy the Quick Start, <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-turnonreports.html" target="_blank" rel="noopener">create AWS Cost and Usage Reports</a> to deliver billing metrics to an Amazon Simple Storage Service (Amazon S3) bucket in your account. These reports provide cost estimates based on usage throughout each month and aggregate the data at the end of the month. For more information, see <a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-costusage.html" target="_blank" rel="noopener">What are AWS Cost and Usage Reports?</a>
 </td>
 </tr>
 </table>
@@ -988,46 +988,59 @@ After you deploy the Quick Start, enable the <a href="https://docs.aws.amazon.co
 <div class="ulist">
 <ul>
 <li>
+<p>Four Amazon virtual private clouds (VPCs), each with a mutiple Availability Zones (Multi-AZ) architecture:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A production VPC for application workloads with private subnets to support shared services.</p>
+</li>
+<li>
+<p>A shared-services VPC with private subnets to support shared services (e.g., Active Directory).</p>
+</li>
+<li>
+<p>An internet VPC for controlled internet access with separate public and private communication channels.</p>
+</li>
+<li>
+<p>An endpoint VPC with private subnets to allow direct access to AWS services.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>AWS Transit Gateway for inter-VPC communication and virtual private network (VPN) termination.</p>
+</li>
+<li>
+<p>A peering connection for inter-VPC traffic between the internet VPC and endpoint VPC.</p>
+</li>
+<li>
+<p>Outbound proxies to handle external requests for logging and compliance.</p>
+</li>
+<li>
+<p>Standard Amazon VPC security groups (not shown) for Amazon Elastic Compute Cloud (Amazon EC2) instances, load balancers, and endpoints.</p>
+</li>
+<li>
+<p>(Not shown) A LAMP (Linux Apache MySQL PHP) application using Auto Scaling and Elastic Load Balancing, which can be modified or bootstrapped using customer applications.</p>
+</li>
+<li>
+<p>Amazon GuardDuty for capture and analysis of security events and compliance.</p>
+</li>
+<li>
+<p>Logging, monitoring, and alerting using AWS Config rules, Amazon CloudWatch, and AWS CloudTrail.</p>
+</li>
+<li>
 <p>A basic AWS Identity and Access Management (IAM) configuration with custom IAM policies, associated groups, roles, and instance profiles.</p>
 </li>
 <li>
-<p>An external-facing Amazon VPC for controlled internet access with Multi-AZ architecture and separate public and private communication.</p>
-</li>
-<li>
-<p>An internal-facing Amazon VPC for shared services (for example, Active Directory) with a Multi-AZ architecture and private subnets to support shared services.</p>
-</li>
-<li>
-<p>An internal-facing Amazon VPC for AWS PrivateLink endpoints to allow direct access to AWS services over the AWS backbone with Multi-AZ architecture and private subnets to support shared services.</p>
-</li>
-<li>
-<p>An internal-facing Amazon VPC for application workloads with Multi-AZ architecture and private subnets to support shared services.</p>
-</li>
-<li>
-<p>AWS Transit Gateway for inter-VPC communication and VPN termination.</p>
-</li>
-<li>
-<p>Standard Amazon VPC security groups for Amazon Elastic Compute Cloud (Amazon EC2) instances, load balancers, and endpoints.</p>
-</li>
-<li>
-<p>A LAMP application using Auto Scaling and Elastic Load Balancing, which can be modified and/or bootstrapped with customer applications.</p>
-</li>
-<li>
-<p>AWS Systems Manager, a sessions manager for administrative access to instances.</p>
-</li>
-<li>
-<p>Logging, monitoring, and alerting using AWS CloudTrail, Amazon CloudWatch, and AWS Config rules.</p>
+<p>AWS Security Hub for audit compliance.</p>
 </li>
 <li>
 <p>Amazon Route 53, a resolver to manage the shared private Domain Name System (DNS) for shared services and endpoints across VPCs.</p>
 </li>
 <li>
+<p>AWS Systems Manager, a sessions manager for administrative access to production-VPC instances.</p>
+</li>
+<li>
 <p>AWS Certificate Manager (ACM) to store and deploy Secure Sockets Layer (SSL) certificates to endpoints (to enable encryption in transit).</p>
-</li>
-<li>
-<p>Capture and analysis of security events and compliance status using AWS GuardDuty.</p>
-</li>
-<li>
-<p>Audit compliance across AWS using AWS Security Hub.</p>
 </li>
 </ul>
 </div>
@@ -1159,7 +1172,7 @@ Cloud.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Certain Regions are available on an opt-in basis. Refer to the AWS Documentation on <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing Regions</a> for more information.
+Certain Regions are available on an opt-in basis. See <a href="https://docs.aws.amazon.com/general/latest/gr/rande-manage.html" target="_blank" rel="noopener">Managing AWS Regions</a>.
 </td>
 </tr>
 </table>
@@ -1168,7 +1181,7 @@ Certain Regions are available on an opt-in basis. Refer to the AWS Documentation
 <div class="sect3">
 <h4 id="_iam_permissions">IAM permissions</h4>
 <div class="paragraph">
-<p>Before launching the Quick Start, you must log in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">IAM permissions</a> for the resources that the templates deploy.</p>
+<p>Before launching the Quick Start, you must sign in to the AWS Management Console with <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_job-functions.html" target="_blank" rel="noopener">IAM permissions</a> for the resources that the templates deploy.</p>
 </div>
 <div class="paragraph">
 <p>The <em>AdministratorAccess</em> managed policy within IAM provides sufficient permissions, although your organization may choose to use a custom policy with more restrictions.</p>
@@ -1584,7 +1597,7 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <h2 id="_send_us_feedback">Send us feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-compliance-uk-official" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. If you’d like to submit code, please review the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
+<p>To post feedback, submit feature ideas, or report bugs, use the <strong>Issues</strong> section of the <a href="https://github.com/aws-quickstart/quickstart-compliance-uk-official" target="_blank" rel="noopener">GitHub repository</a> for this Quick Start. To submit code, see the <a href="https://aws-quickstart.github.io/" target="_blank" rel="noopener">Quick Start Contributor’s Guide</a>.</p>
 </div>
 </div>
 </div>
@@ -1600,7 +1613,7 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <h2 id="_github_repository">GitHub repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can visit our <a href="https://github.com/aws-quickstart/quickstart-compliance-uk-official" target="_blank" rel="noopener">GitHub repository</a> to download
+<p>Visit our <a href="https://github.com/aws-quickstart/quickstart-compliance-uk-official" target="_blank" rel="noopener">GitHub repository</a> to download
 the templates and scripts for this Quick Start, to post your comments,
 and to share your customizations with others.</p>
 </div>
