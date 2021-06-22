@@ -177,11 +177,20 @@ Resources:
                 Action:
                   - ec2:DescribeVpcs
                   - ec2:DescribeFlowLogs
+                Resource: '*'
+              - Effect: Allow
+                Action:
                   - ec2:CreateFlowLogs
+                Resource: !Ref 'ec2/subnet'
+              - Effect: Allow
+                Action:
                   - ec2:DeleteFlowLogs
+                Resource: !Ref 'ec2/vpc-flow-log'
+              - Effect: Allow
+                Action:
                   - iam:GetRole
                   - iam:PassRole
-                Resource: '*'
+                Resource: !Ref 'iam/role'
               - Effect: Allow
                 Action:
                   - logs:CreateLogGroup
@@ -202,4 +211,3 @@ Resources:
       - VPCFlowLogRole
     Properties:
       ServiceToken: !GetAtt AddDefaultVPCFlowLogsLambda.Arn
-

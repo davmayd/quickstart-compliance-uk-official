@@ -82,12 +82,35 @@ Resources:
           - Effect: Allow
             Action:
             - ecr:GetAuthorizationToken
-            - ecr:BatchCheckLayerAvailability
-            - ecr:GetDownloadUrlForLayer
-            - ecr:BatchGetImage
-            - logs:CreateLogStream
-            - logs:PutLogEvents
             Resource: '*'
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+            Resource: !Ref 'logs/log-group'
+          - Effect: Allow
+            Action:
+              - logs:PutLogEvents
+            Resource: !Ref 'logs/log-stream'
+          - Effect: Allow
+            Action:
+              - ecr:BatchCheckLayerAvailability
+              - ecr:BatchGetImage
+              - ecr:GetDownloadUrlForLayer
+            Resource: !Ref 'ecr/repository'
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+            Resource: !Ref 'logs/log-group'
+          - Effect: Allow
+            Action:
+              - logs:PutLogEvents
+            Resource: !Ref 'logs/log-stream'
+          - Effect: Allow
+            Action:
+              - ecr:BatchCheckLayerAvailability
+              - ecr:BatchGetImage
+              - ecr:GetDownloadUrlForLayer
+            Resource: !Ref 'ecr/repository'
       Path: /
 
   ECSCluster:
@@ -164,13 +187,32 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - application-autoscaling:*
+                  - application-autoscaling:DeleteScalingPolicy
+                  - application-autoscaling:DeleteScheduledAction
+                  - application-autoscaling:DeregisterScalableTarget
+                  - application-autoscaling:DescribeScalableTargets
+                  - application-autoscaling:DescribeScalingActivities
+                  - application-autoscaling:DescribeScalingPolicies
+                  - application-autoscaling:DescribeScheduledActions
+                  - application-autoscaling:PutScalingPolicy
+                  - application-autoscaling:PutScheduledAction
+                  - application-autoscaling:RegisterScalableTarget
                   - cloudwatch:DescribeAlarms
                   - cloudwatch:PutMetricAlarm
                   - ecs:DescribeServices
                   - ecs:UpdateService
                 Resource: '*'
 
+              - Effect: Allow
+                Action:
+                  - cloudwatch:PutMetricAlarm
+                  - cloudwatch:DescribeAlarms
+                Resource: !Ref 'cloudwatch/alarm'
+              - Effect: Allow
+                Action:
+                  - ecs:UpdateService
+                  - ecs:DescribeServices
+                Resource: !Ref 'ecs/service'
   DefaultServiceScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:
