@@ -181,16 +181,16 @@ Resources:
               - Effect: Allow
                 Action:
                   - ec2:CreateFlowLogs
-                Resource: !Ref 'ec2/subnet'
+                Resource: '*'
               - Effect: Allow
                 Action:
                   - ec2:DeleteFlowLogs
-                Resource: !Ref 'ec2/vpc-flow-log'
+                Resource: '*'
               - Effect: Allow
                 Action:
                   - iam:GetRole
                   - iam:PassRole
-                Resource: !Ref 'iam/role'
+                Resource: '*'
               - Effect: Allow
                 Action:
                   - logs:CreateLogGroup
@@ -203,6 +203,13 @@ Resources:
                   - iam:GetRole
                   - iam:PassRole
                 Resource: !Sub 'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/official-quickstart-default-vpc-flow-logs-role'
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "This is the role used by a Lambda function enabling VPC flow logs on the default VPC. We do not know the resource details for the VPC before creating this role."
 
 
   AddDefaultVPCFlowLogs:
