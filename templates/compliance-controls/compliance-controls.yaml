@@ -552,7 +552,15 @@ Resources:
             Action:
               - ec2:RevokeSecurityGroupIngress
               - ec2:RevokeSecurityGroupEgress
-            Resource: !Ref 'ec2/security-group'
+            Resource: '*'
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "This is a role used by lambda to tighten the default VPC security groups. We do not know the resource IDs prior to creating therefore the security group resource cannot be scoped down."
+
   LockDefaultSGLambdaFunction: # needs no monitoring because it is used as a custom resource
     Type: 'AWS::Lambda::Function'
     Properties:
