@@ -798,34 +798,30 @@ Resources:
           - Sid: UploadServerCertificate
             Effect: Allow
             Action:
-            - acm:ListCertificates
-            - acm:ImportCertificate
-            - acm:DescribeCertificate
-            - acm:DeleteCertificate
+              - acm:ListCertificates
+              - acm:ImportCertificate
+              - acm:DescribeCertificate
+              - acm:DeleteCertificate
             Resource:
-            - '*'
+              - '*'
           - Effect: Allow
             Action:
               - acm:DeleteCertificate
               - acm:DescribeCertificate
               - acm:ImportCertificate
-            Resource: !Ref 'acm/certificate'
-          - Sid: CreateLoadBalancerListener
-            Effect: Allow
-            Action:
-            - elasticloadbalancing:CreateListener
-            - elasticloadbalancing:DeleteListener
-            Resource:
-            - '*'
-
-          - Effect: Allow
-            Action:
-              - elasticloadbalancing:CreateListener
-            Resource: !Ref 'elasticloadbalancing/loadbalancer/net/'
+            Resource: '*'
           - Effect: Allow
             Action:
               - elasticloadbalancing:DeleteListener
-            Resource: !Ref 'elasticloadbalancing/listener/net'
+            Resource: '*'
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "Unable to provide a scoped permission for the certiciate as the lambda function the role is assigned to is also responsible for creating the certificate so we don't know the arn for the cert when creating this role. Secondly because the certificate is added outside of CloudFormation the deletion would fail upon stack deleteion. To resolve this the Lambda function deletes the listener when the stack is deleted. Adding the listener arn to scope the IAM role down causes a circular dependency."
+
   PostProcessingLambda:
     Type: "AWS::Lambda::Function"
     DependsOn:
