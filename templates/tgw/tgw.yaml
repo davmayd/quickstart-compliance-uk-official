@@ -215,7 +215,8 @@ Resources:
           ignore_checks:
             - EIAMPolicyWildcardResource
           ignore_reasons:
-            EIAMPolicyWildcardResource: "This is not an IAM policy and we have taken the decision not to restirct the endpoint resource policy to give flexibilty for AWS service use."
+            EPolicyWildcardPrincipal: "This endpoint is used in a consolidated endpoint VPC. The endpoint resource policy is intentional open to give flexibilty for AWS service use."
+            EIAMPolicyActionWildcard: "This endpoint is used in a consolidated endpoint VPC. The endpoint resource policy is intentional open to give flexibilty for AWS service use."
 
   ec2Endpoint:
     Type: AWS::EC2::VPCEndpoint
