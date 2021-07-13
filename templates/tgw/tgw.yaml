@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
-Description: "Create the transit gateway"
+Description: "Create the transit gateway (qs-1s39ksjb1)"
 
 ###  Parameters Definition  ###
 

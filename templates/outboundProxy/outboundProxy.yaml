@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Deploy a service on AWS Fargate, hosted in a private subnet, but accessible via a private NLB for outbound proxying
+Description: Deploy a service on AWS Fargate, hosted in a private subnet, but accessible via a private NLB for outbound proxying with outbound squid proxy (qs-1s39ksj9r)
 Parameters:
   InternetPrivateSubnetIdA:
     Type: String
