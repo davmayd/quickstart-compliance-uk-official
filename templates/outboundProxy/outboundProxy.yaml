@@ -86,7 +86,7 @@ Resources:
           - Effect: Allow
             Action:
               - logs:PutLogEvents
-            Resource: !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:official-quickstart-outboundProxy-*'
+            Resource: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:official-quickstart-outboundProxy-*'
       Path: /
 
   ECSCluster:
