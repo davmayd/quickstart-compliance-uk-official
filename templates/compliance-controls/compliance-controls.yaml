@@ -802,6 +802,13 @@ Resources:
               kms:CallerAccount: !Sub '${AWS::AccountId}'
             StringLike:
               kms:EncryptionContext:aws:cloudtrail:arn: !Sub arn:${AWS::Partition}:cloudtrail:*:${AWS::AccountId}:trail/*
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "This role is scope to the CloudTrail principal. We do not know what resources CloudTrail needs to manage so leave it as a wildcard."
 
   CloudTrailLogGroup:
     Type: 'AWS::Logs::LogGroup'
