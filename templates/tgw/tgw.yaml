@@ -209,6 +209,13 @@ Resources:
         - !Ref EndpointPrivateRT
       ServiceName: !Join [ '', [ 'com.amazonaws.', !Ref 'AWS::Region', '.s3' ] ]
       VpcId: !Ref EndpointVPCId
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "This is not an IAM policy and we have taken the decision not to restirct the endpoint resource policy to give flexibilty for AWS service use."
 
   ec2Endpoint:
     Type: AWS::EC2::VPCEndpoint
