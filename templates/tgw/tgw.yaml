@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
-Description: "Create the transit gateway"
+Description: "Create the transit gateway (qs-1s39ksjb1)"
 
 ###  Parameters Definition  ###
 
@@ -209,6 +209,15 @@ Resources:
         - !Ref EndpointPrivateRT
       ServiceName: !Join [ '', [ 'com.amazonaws.', !Ref 'AWS::Region', '.s3' ] ]
       VpcId: !Ref EndpointVPCId
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EPolicyWildcardPrincipal
+            - EIAMPolicyActionWildcard
+          ignore_reasons:
+            EPolicyWildcardPrincipal: "This endpoint is used in a consolidated endpoint VPC. The endpoint resource policy is intentional open to give flexibilty for AWS service use."
+            EIAMPolicyActionWildcard: "This endpoint is used in a consolidated endpoint VPC. The endpoint resource policy is intentional open to give flexibilty for AWS service use."
 
   ec2Endpoint:
     Type: AWS::EC2::VPCEndpoint

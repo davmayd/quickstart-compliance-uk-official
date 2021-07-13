@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Deploy a service on AWS Fargate, hosted in a private subnet, but accessible via a private NLB for outbound proxying
+Description: Deploy a service on AWS Fargate, hosted in a private subnet, but accessible via a private NLB for outbound proxying with outbound squid proxy (qs-1s39ksj9r)
 Parameters:
   InternetPrivateSubnetIdA:
     Type: String
@@ -75,42 +75,18 @@ Resources:
             Service: ecs-tasks.amazonaws.com
           Action: sts:AssumeRole
       Policies:
-      - PolicyName: KmsReadOnly
+      - PolicyName: ECS
         PolicyDocument:
           Version: 2012-10-17
           Statement:
           - Effect: Allow
             Action:
-            - ecr:GetAuthorizationToken
-            Resource: '*'
-          - Effect: Allow
-            Action:
               - logs:CreateLogStream
-            Resource: !Ref 'logs/log-group'
+            Resource: !GetAtt 'ECSLogGroup.Arn'
           - Effect: Allow
             Action:
               - logs:PutLogEvents
-            Resource: !Ref 'logs/log-stream'
-          - Effect: Allow
-            Action:
-              - ecr:BatchCheckLayerAvailability
-              - ecr:BatchGetImage
-              - ecr:GetDownloadUrlForLayer
-            Resource: !Ref 'ecr/repository'
-          - Effect: Allow
-            Action:
-              - logs:CreateLogStream
-            Resource: !Ref 'logs/log-group'
-          - Effect: Allow
-            Action:
-              - logs:PutLogEvents
-            Resource: !Ref 'logs/log-stream'
-          - Effect: Allow
-            Action:
-              - ecr:BatchCheckLayerAvailability
-              - ecr:BatchGetImage
-              - ecr:GetDownloadUrlForLayer
-            Resource: !Ref 'ecr/repository'
+            Resource: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:official-quickstart-outboundProxy-*'
       Path: /
 
   ECSCluster:
@@ -202,17 +178,24 @@ Resources:
                   - ecs:DescribeServices
                   - ecs:UpdateService
                 Resource: '*'
-
               - Effect: Allow
                 Action:
                   - cloudwatch:PutMetricAlarm
                   - cloudwatch:DescribeAlarms
-                Resource: !Ref 'cloudwatch/alarm'
+                Resource: '*'
               - Effect: Allow
                 Action:
                   - ecs:UpdateService
                   - ecs:DescribeServices
-                Resource: !Ref 'ecs/service'
+                Resource: !Ref 'OutboundProxyService'
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "This role is used to create the autoscaling configuration. Until that is created we do not know the CloudWatch alarm resource details. Trying to add here casues a circular dependency."
+
   DefaultServiceScalingTarget:
     Type: AWS::ApplicationAutoScaling::ScalableTarget
     Properties:

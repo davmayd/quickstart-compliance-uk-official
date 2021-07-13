@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
+Description: create VPCs (qs-1s39ksja8)
 
 Parameters:
   VPCCidrBlock:

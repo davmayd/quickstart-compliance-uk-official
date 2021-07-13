@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'Security: Account Password Policy, a cloudonaut.io template'
+Description: 'Security: Account Password Policy, a cloudonaut.io template (qs-1s39ksj9f)'
 Metadata:
   'AWS::CloudFormation::Interface':
     ParameterGroups:
@@ -552,7 +552,15 @@ Resources:
             Action:
               - ec2:RevokeSecurityGroupIngress
               - ec2:RevokeSecurityGroupEgress
-            Resource: !Ref 'ec2/security-group'
+            Resource: '*'
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "This is a role used by lambda to tighten the default VPC security groups. We do not know the resource IDs prior to creating therefore the security group resource cannot be scoped down."
+
   LockDefaultSGLambdaFunction: # needs no monitoring because it is used as a custom resource
     Type: 'AWS::Lambda::Function'
     Properties:
@@ -794,6 +802,13 @@ Resources:
               kms:CallerAccount: !Sub '${AWS::AccountId}'
             StringLike:
               kms:EncryptionContext:aws:cloudtrail:arn: !Sub arn:${AWS::Partition}:cloudtrail:*:${AWS::AccountId}:trail/*
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            EIAMPolicyWildcardResource: "This role is scope to the CloudTrail principal. We do not know what resources CloudTrail needs to manage so leave it as a wildcard."
 
   CloudTrailLogGroup:
     Type: 'AWS::Logs::LogGroup'
