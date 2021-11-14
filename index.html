@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.15">
+<meta name="generator" content="Asciidoctor 2.0.16">
 <title>Standardized Architecture for UK-OFFICIAL on the AWS Cloud</title>
 <style>
 
@@ -1187,13 +1187,12 @@ deploy, and operate your infrastructure and applications on the AWS Cloud.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_supported_regions">Supported Regions</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><em>eu-west-2 (London)</em></p>
-</li>
-</ul>
+<h4 id="_supported_aws_regions">Supported AWS Regions</h4>
+<div class="paragraph">
+<p>For any Quick Start to work in a Region other than its default Region, all the services it deploys must be supported in that Region. You can launch a Quick Start in any Region and see if it works. If you get an error such as “Unrecognized resource type,” the Quick Start is not supported in that Region.</p>
+</div>
+<div class="paragraph">
+<p>For an up-to-date list of AWS Regions and the AWS services they support, see <a href="https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/" target="_blank" rel="noopener">AWS Regional Services</a>.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1445,7 +1444,7 @@ NOTE: Unless you are customizing the Quick Start templates for your own deployme
 </table>
 <div class="paragraph">
 <p>+
-. On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you’re finished, choose <strong>Next</strong>.
+. On the <strong>Configure stack options</strong> page, you can <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html" target="_blank" rel="noopener">specify tags</a> (key-value pairs) for resources in your stack and <a href="https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html" target="_blank" rel="noopener">set advanced options</a>. When you finish, choose <strong>Next</strong>.
 . On the <strong>Review</strong> page, review and confirm the template settings. Under <strong>Capabilities</strong>, select the two check boxes to acknowledge that the template creates IAM resources and might require the ability to automatically expand macros.
 . Choose <strong>Create stack</strong> to deploy the stack.
 . Monitor the status of the stack. When the status is <strong>CREATE_COMPLETE</strong>, the Standardized Architecture for UK-OFFICIAL deployment is ready.
@@ -1618,7 +1617,7 @@ When you set <strong>Rollback on failure</strong> to <strong>Disabled</strong>, 
 <h2 id="_quick_start_reference_deployments">Quick Start reference deployments</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>See the <a href="https://aws.amazon.com/quickstart/">AWS Quick Start home page</a>.</p>
+<p>See the <a href="https://aws.amazon.com/quickstart/" target="_blank" rel="noopener">AWS Quick Start home page</a>.</p>
 </div>
 </div>
 </div>
@@ -1647,16 +1646,16 @@ and to share your customizations with others.</p>
 </div>
 <p class="footer-text">
 <!-- We can use document attributes: -->
-<!-- Generated with Asciidoctor v2.0.15. -->
+<!-- Generated with Asciidoctor v2.0.16. -->
 <a href="https://aws.amazon.com/privacy/">Privacy</a> | <a href="https://aws.amazon.com/terms/">Site terms</a> | &copy; 2021, Amazon Web Services, Inc. or its affiliates and AWS World Wide Professional Services. All rights reserved.
 </p>
 </body>
 </html>
 <!--
 repo commit:
-2a82e26934c4d8caa504042974caeaa5dd547c09
+cb419d46d8ba6ffe49e24ea08d818cfcf271bcc6
 
 submodule config:
- 81ea0b675a571b662377f9de556a26cce8dad05f docs/boilerplate (heads/main)
- 233791d27d0e2b0cc71c999d9fb1e535317f28ea submodules/quickstart-compliance-common (heads/main)
+ 4ee94d6b60ec455e5b452e8ad9841eb825704b70 docs/boilerplate (remotes/origin/region_table_optin-3-g4ee94d6)
+ 2198403a80d7970f95fad7e95e4d19350878c5e8 submodules/quickstart-compliance-common (heads/main)
 -->
