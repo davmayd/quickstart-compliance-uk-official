@@ -31,9 +31,9 @@ Parameters:
     Default: 90
   ContainerImage:
     Type: String
-    Description: The container to use. This can be a dockerhub name (e.g. datadog/squid) or a full ECR path.
+    Description: The container to use. This can be a dockerhub name (e.g. sameersbn/squid) or a full ECR path.
     #Default: chriskingwork/docker-squid:latest
-    Default: datadog/squid:latest
+    Default: sameersbn/squid:latest
   ProjectName:
     Type: String
     Description: Project Name to be used for naming and tagging
